@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第四課短文閱讀測驗</title>
+<style>
+    body {
+        font-family: "Microsoft JhengHei", Arial, sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+    .quiz-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        max-width: 800px;
+        width: 100%;
+    }
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+    .question-box {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    .question-title {
+        font-weight: bold;
+        font-size: 1.15em;
+        margin-bottom: 15px;
+        color: #34495e;
+    }
+    .options label {
+        display: block;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    .options label:hover {
+        background-color: #eef2f7;
+    }
+    input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+    }
+    .submit-btn {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 30px;
+    }
+    .submit-btn:hover {
+        background-color: #2980b9;
+    }
+    #result-area {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 1.3em;
+        font-weight: bold;
+        padding: 20px;
+        border-radius: 10px;
+        display: none; /* 一開始隱藏 */
+    }
+    .explanation {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #fff3cd;
+        border-left: 5px solid #ffc107;
+        font-size: 0.95em;
+        color: #666;
+        display: none; /* 一開始隱藏解釋 */
+    }
+    /* 作答後的樣式 */
+    .correct-title { color: #27ae60 !important; }
+    .wrong-title { color: #c0392b !important; }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>第四課：短文閱讀理解測驗</h1>
+    <p>請閱讀短文後，選出最合適的答案。（共 8 題）</p>
+
+    <form id="quizForm">
+        <div class="question-box" id="q1-box">
+            <div class="question-title">1. 高美玲為什麼現在可以在台灣打工？</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A. 因為她是法國人</label>
+                <label><input type="radio" name="q1" value="B"> B. 因為她來台灣一年了</label>
+                <label><input type="radio" name="q1" value="C"> C. 因為她有工作經驗</label>
+            </div>
+            <div class="explanation" id="exp1">💡 答案：B。短文提到：「高美玲來了一年了，按照台灣的法律，她已經可以打工了」。</div>
+        </div>
+
+        <div class="question-box" id="q2-box">
+            <div class="question-title">2. 誰給高美玲介紹了這份工作？</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A. 她的台灣朋友</label>
+                <label><input type="radio" name="q2" value="B"> B. 語言中心的主任</label>
+                <label><input type="radio" name="q2" value="C"> C. 她的法文老師</label>
+            </div>
+            <div class="explanation" id="exp2">💡 答案：A。短文提到：「她的台灣朋友給她介紹了一個...工作」。</div>
+        </div>
+
+        <div class="question-box" id="q3-box">
+            <div class="question-title">3. 去面談以前，高美玲覺得自己的經驗怎麼樣？</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A. 很豐富</label>
+                <label><input type="radio" name="q3" value="B"> B. 很合適</label>
+                <label><input type="radio" name="q3" value="C"> C. 還不夠</label>
+            </div>
+            <div class="explanation" id="exp3">💡 答案：C。短文提到：「雖然高美玲覺得自己的經驗還不夠，可是決定去試一試」。</div>
+        </div>
+
+        <div class="question-box" id="q4-box">
+            <div class="question-title">4. 關於黃主任，下面哪一個是對的？</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A"> A. 他是法國華僑</label>
+                <label><input type="radio" name="q4" value="B"> B. 他剛來台灣工作</label>
+                <label><input type="radio" name="q4" value="C"> C. 他以前沒在大學工作過</label>
+            </div>
+            <div class="explanation" id="exp4">💡 答案：A。短文提到：「這位主任姓黃，是法國華僑」。(他在大學工作十年了，所以 B 和 C 是錯的)</div>
+        </div>
+
+        <div class="question-box" id="q5-box">
+            <div class="question-title">5. 黃主任問了高美玲什麼事情？</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> A. 在法國念大學的情形</label>
+                <label><input type="radio" name="q5" value="B"> B. 在台灣生活的情形</label>
+                <label><input type="radio" name="q5" value="C"> C. 在台灣教書的情形</label>
+            </div>
+            <div class="explanation" id="exp5">💡 答案：B。短文提到：主任問她「在法國的工作經驗」，再問她「在台灣學中文跟生活的情形」。</div>
+        </div>
+
+        <div class="question-box" id="q6-box">
+            <div class="question-title">6. 這份工作的薪水什麼時候發？</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> A. 下個月一號</label>
+                <label><input type="radio" name="q6" value="B"> B. 每個月的月底</label>
+                <label><input type="radio" name="q6" value="C"> C. 按照工作的時間發</label>
+            </div>
+            <div class="explanation" id="exp6">💡 答案：B。短文提到：「每個月的月底發薪水」。（C是薪水的算法，不是發的時間）</div>
+        </div>
+
+        <div class="question-box" id="q7-box">
+            <div class="question-title">7. 高美玲什麼時候開始上班？</div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> A. 每個星期三</label>
+                <label><input type="radio" name="q7" value="B"> B. 下個月一號</label>
+                <label><input type="radio" name="q7" value="C"> C. 下個月月底</label>
+            </div>
+            <div class="explanation" id="exp7">💡 答案：B。短文提到：「下個月一號就開始上班」。</div>
+        </div>
+
+        <div class="question-box" id="q8-box">
+            <div class="question-title">8. 高美玲覺得這次面談的結果怎麼樣？</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A"> A. 很緊張</label>
+                <label><input type="radio" name="q8" value="B"> B. 很順利</label>
+                <label><input type="radio" name="q8" value="C"> C. 很辛苦</label>
+            </div>
+            <div class="explanation" id="exp8">💡 答案：B。短文最後一句：「高美玲沒想到這次的面談這麼順利」。</div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="submitQuiz()">送出答案 (Nộp bài)</button>
+    </form>
+
+    <div id="result-area"></div>
+</div>
+
+<script>
+    function submitQuiz() {
+        // 正確答案設定
+        const correctAnswers = {
+            q1: "B",
+            q2: "A",
+            q3: "C",
+            q4: "A",
+            q5: "B",
+            q6: "B",
+            q7: "B",
+            q8: "B"
+        };
+
+        let score = 0;
+        const totalQuestions = 8;
+        const resultArea = document.getElementById("result-area");
+
+        // 迴圈檢查每一題
+        for (let i = 1; i <= totalQuestions; i++) {
+            const qName = "q" + i;
+            const selectedOption = document.querySelector('input[name="' + qName + '"]:checked');
+            const titleElement = document.querySelector("#q" + i + "-box .question-title");
+            const explanationElement = document.getElementById("exp" + i);
+
+            // 重置標題樣式
+            titleElement.classList.remove("correct-title", "wrong-title");
+
+            // 顯示解釋
+            explanationElement.style.display = "block";
+
+            if (selectedOption) {
+                if (selectedOption.value === correctAnswers[qName]) {
+                    score++;
+                    titleElement.classList.add("correct-title");
+                    titleElement.innerHTML = i + ". (✅ 答對了!) " + titleElement.innerText.substring(titleElement.innerText.indexOf(" ") + 1);
+                } else {
+                    titleElement.classList.add("wrong-title");
+                    titleElement.innerHTML = i + ". (❌ 答錯了!) " + titleElement.innerText.substring(titleElement.innerText.indexOf(" ") + 1);
+                }
+            } else {
+                // 沒作答
+                titleElement.classList.add("wrong-title");
+                titleElement.innerHTML = i + ". (❌ 未作答) " + titleElement.innerText.substring(titleElement.innerText.indexOf(" ") + 1);
+            }
+        }
+
+        // 顯示結果
+        resultArea.style.display = "block";
+        resultArea.innerHTML = "你的得分： " + score + " / " + totalQuestions;
+
+        if (score === totalQuestions) {
+            resultArea.style.backgroundColor = "#d4edda";
+            resultArea.style.color = "#155724";
+            resultArea.innerHTML += "<br>太棒了！全部答對！ (Tuyệt vời!)";
+        } else if (score >= totalQuestions / 2) {
+            resultArea.style.backgroundColor = "#fff3cd";
+            resultArea.style.color = "#856404";
+            resultArea.innerHTML += "<br>不錯喔，再加油！ (Khá lắm, cố lên!)";
+        } else {
+            resultArea.style.backgroundColor = "#f8d7da";
+            resultArea.style.color = "#721c24";
+            resultArea.innerHTML += "<br>請再多複習一下課文喔！ (Hãy ôn tập thêm nhé!)";
+        }
+        
+        // 捲動到結果區
+        resultArea.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
