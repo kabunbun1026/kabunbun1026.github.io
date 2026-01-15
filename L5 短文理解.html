@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台灣喜宴文化 - 閱讀測驗</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #d32f2f; /* 喜氣的紅色 */
+            margin-bottom: 30px;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        .options label:hover {
+            background-color: #f0f0f0;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #b71c1c;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: none;
+        }
+        .correct-answer {
+            color: green;
+            font-weight: bold;
+        }
+        .wrong-answer {
+            color: red;
+        }
+        .explanation {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            display: none; /* 預設隱藏，交卷後顯示 */
+            background-color: #fff8e1;
+            padding: 5px 10px;
+            border-left: 3px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>台灣喜宴文化 - 閱讀測驗</h1>
+    <div id="quiz-container">
+        </div>
+    
+    <button onclick="checkAnswers()">送出答案 (Gửi câu trả lời)</button>
+    
+    <div id="result"></div>
+</div>
+
+<script>
+    // 題目資料庫
+    const quizData = [
+        {
+            question: "1. 在台灣，哪一個不是婚禮的傳統",
+            options: ["找一個好日子", "辦一場熱鬧的婚禮", "去親戚家慶祝喜事"],
+            answer: 2 // 0=A, 1=B, 2=C
+        },
+        {
+            question: "2. 對安同和美玲來說，這次的喜宴有什麼特別的地方？",
+            options: ["這是他們第一次去吃喜酒", "他們要上台唱歌", "他們要去幫忙收紅包"],
+            answer: 0
+        },
+        {
+            question: "3. 在台灣，參加婚禮的客人都會準備什麼送給新人？",
+            options: ["禮物", "黃金", "紅包"],
+            answer: 2
+        },
+        {
+            question: "4. 婚禮的氣氛怎麼樣？下面哪一個不對？",
+            options: ["大家到處敬酒", "找朋友聊天", "喝醉了大聲唱歌"],
+            answer: 2
+        },
+        {
+            question: "5. 大家吃飯吃著吃著，誰會過來敬酒？",
+            options: ["新郎和新娘", "餐廳的服務生", "新郎、新娘和他們的父母"],
+            answer: 2
+        },
+        {
+            question: "6. 客人通常會用哪句話來祝福新人？",
+            options: ["早生貴子", "生日快樂", "恭喜發財"],
+            answer: 0
+        },
+        {
+            question: "7. 喜宴快結束的時候，新娘通常會做什麼？",
+            options: ["換另外一件禮服", "去上洗手間", "趕快吃一些菜"],
+            answer: 0
+        },
+        {
+            question: "8. 婚禮時不會發生什麼事？",
+            options: ["有的人去跟新人敬酒", "客人們安靜地吃飯", "大家穿得漂漂亮亮的"],
+            answer: 1
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+
+    // 產生題目 HTML
+    function renderQuiz() {
+        let output = [];
+        quizData.forEach((data, index) => {
+            let optionsHtml = [];
+            data.options.forEach((option, i) => {
+                optionsHtml.push(
+                    `<label id="q${index}_opt${i}">
+                        <input type="radio" name="question${index}" value="${i}">
+                        ${option}
+                     </label>`
+                );
+            });
+
+            output.push(
+                `<div class="question-block" id="block${index}">
+                    <div class="question-title">${data.question}</div>
+                    <div class="options">${optionsHtml.join('')}</div>
+                    <div class="explanation" id="exp${index}">正確答案是：${data.options[data.answer]}</div>
+                 </div>`
+            );
+        });
+        quizContainer.innerHTML = output.join('');
+    }
+
+    // 檢查答案
+    function checkAnswers() {
+        let score = 0;
+        let total = quizData.length;
+        
+        quizData.forEach((data, index) => {
+            const selector = `input[name="question${index}"]:checked`;
+            const userAnswer = document.querySelector(selector);
+            const explanationBlock = document.getElementById(`exp${index}`);
+            const questionBlock = document.getElementById(`block${index}`);
+            
+            // 重置樣式
+            explanationBlock.style.display = 'none';
+            // 清除之前的顏色標記
+            for(let i=0; i<3; i++) {
+                let label = document.getElementById(`q${index}_opt${i}`);
+                label.style.backgroundColor = "";
+                label.style.color = "";
+            }
+
+            if (!userAnswer) {
+                // 沒作答
+                explanationBlock.style.display = 'block';
+                explanationBlock.innerHTML = "❌ 你忘了回答這題！正確答案是：" + data.options[data.answer];
+                explanationBlock.style.color = "red";
+            } else {
+                const userValue = parseInt(userAnswer.value);
+                const correctValue = data.answer;
+                const userLabel = document.getElementById(`q${index}_opt${userValue}`);
+                const correctLabel = document.getElementById(`q${index}_opt${correctValue}`);
+
+                if (userValue === correctValue) {
+                    score++;
+                    userLabel.style.backgroundColor = "#d4edda"; // 綠色背景
+                    userLabel.style.color = "#155724";
+                    userLabel.innerHTML += " ✅";
+                } else {
+                    userLabel.style.backgroundColor = "#f8d7da"; // 紅色背景
+                    userLabel.style.color = "#721c24";
+                    userLabel.innerHTML += " ❌";
+                    
+                    // 顯示正確答案
+                    explanationBlock.style.display = 'block';
+                }
+            }
+        });
+
+        // 顯示總分
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `你的分數： ${score} / ${total}`;
+        
+        if (score === total) {
+            resultDiv.innerHTML += "<br>🎉 太棒了！全部答對！";
+            resultDiv.style.color = "green";
+        } else {
+            resultDiv.innerHTML += "<br>再試一次，加油！";
+            resultDiv.style.color = "#d32f2f";
+        }
+        
+        // 捲動到底部
+        resultDiv.scrollIntoView({behavior: "smooth"});
+    }
+
+    // 初始化
+    renderQuiz();
+
+</script>
+
+</body>
+</html>
