@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>當代中文課程 B3L2 — 課文理解線上練習</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- CSS Variables & Design System --- */
+    :root {
+      --bg-primary: #0a0b1e;
+      --bg-secondary: #0f1026;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --accent-violet: #8b5cf6;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-glow: rgba(99, 102, 241, 0.15);
+      
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      --shadow-lg: 0 20px 50px -12px rgba(0, 0, 0, 0.6), 0 12px 24px -10px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 40px -10px rgba(99, 102, 241, 0.4);
+    }
+
+    /* --- Base Reset & Setup --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+      padding: 20px;
+    }
+
+    /* --- Glowing Background Orbs --- */
+    .bg-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: 0;
+      opacity: 0.3;
+      pointer-events: none;
+      animation: pulse-glow 15s infinite ease-in-out alternate;
+    }
+
+    .bg-glow-1 {
+      background: radial-gradient(circle, var(--accent-indigo) 0%, transparent 70%);
+      top: -10%;
+      left: -10%;
+    }
+
+    .bg-glow-2 {
+      background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+      bottom: -10%;
+      right: -10%;
+      animation-delay: -5s;
+    }
+
+    @keyframes pulse-glow {
+      0% { transform: scale(1) translate(0, 0); opacity: 0.25; }
+      50% { transform: scale(1.15) translate(30px, -20px); opacity: 0.4; }
+      100% { transform: scale(0.9) translate(-20px, 30px); opacity: 0.2; }
+    }
+
+    /* --- Core Container --- */
+    .app-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* --- Header --- */
+    header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 99px;
+      color: var(--accent-indigo);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- Progress bar --- */
+    .progress-panel {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .progress-text {
+      color: var(--text-muted);
+    }
+
+    .progress-text strong {
+      color: var(--text-main);
+      font-size: 1rem;
+    }
+
+    .percent-text {
+      color: var(--accent-indigo);
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-indigo), var(--accent-purple));
+      border-radius: 99px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+
+    /* --- Question Card --- */
+    .question-card {
+      background: radial-gradient(120% 120% at 50% 10%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: var(--transition-normal);
+      position: relative;
+    }
+
+    .question-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Options List */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px 20px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition-normal);
+      outline: none;
+      font-family: inherit;
+      line-height: 1.4;
+    }
+
+    .option-btn:hover:not(.answered) {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .option-btn:active:not(.answered) {
+      transform: translateY(0);
+    }
+
+    /* Option States */
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #a7f3d0;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+    }
+
+    .option-btn.dimmed {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .option-btn.answered {
+      cursor: not-allowed;
+    }
+
+    .icon-marker {
+      font-size: 1.15rem;
+      font-weight: bold;
+    }
+
+    /* Explanation Panel */
+    .explanation-panel {
+      background: rgba(99, 102, 241, 0.05);
+      border-left: 4px solid var(--accent-indigo);
+      border-radius: 4px 12px 12px 4px;
+      padding: 16px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+      display: none;
+      animation: expand 0.3s ease-out forwards;
+    }
+
+    @keyframes expand {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .explanation-title {
+      font-weight: 700;
+      color: var(--accent-indigo);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Next Button Panel */
+    .actions-panel {
+      display: flex;
+      justify-content: flex-end;
+      min-height: 48px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-weight: 700;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      transition: var(--transition-normal);
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-purple) 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
+      filter: brightness(1.1);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* --- Score Screen --- */
+    .score-screen {
+      background: linear-gradient(135deg, rgba(15, 17, 39, 0.95) 0%, rgba(30, 20, 50, 0.95) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 28px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: var(--shadow-lg), 0 0 50px rgba(168, 85, 247, 0.2);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      display: none; /* Hidden initially */
+    }
+
+    .trophy-icon {
+      font-size: 4.5rem;
+      margin-bottom: 6px;
+      animation: bounce-trophy 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce-trophy {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-12px) scale(1.05); }
+    }
+
+    .score-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .score-message {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    /* Radial Progress Bar */
+    .radial-progress-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 10px 0;
+    }
+
+    .circle-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.04);
+      stroke-width: 8;
+    }
+
+    .circle-bar {
+      fill: none;
+      stroke: url(#gradient);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 377; /* 2 * PI * r = 2 * 3.14 * 60 */
+      stroke-dashoffset: 377;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .score-display {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .score-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Stats Board */
+    .stats-board {
+      display: flex;
+      width: 100%;
+      max-width: 380px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px;
+      gap: 12px;
+    }
+
+    .stat-cell {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-cell:not(:last-child) {
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .stat-value.correct-color { color: var(--accent-green); }
+    .stat-value.wrong-color { color: var(--accent-red); }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    /* Confetti Particle */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      opacity: 0.8;
+      z-index: 15;
+      pointer-events: none;
+      animation: fall 3s infinite linear;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* --- Credits --- */
+    footer {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+    }
+
+    /* --- Hidden State Helper --- */
+    .hidden {
+      display: none !important;
+    }
+
+    /* --- Animations --- */
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-slide-in {
+      animation: slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* --- Responsive adjustments --- */
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+      .question-card {
+        padding: 20px;
+      }
+      .question-title {
+        font-size: 1.05rem;
+      }
+      .option-btn {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background Glows -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <span class="badge">當代中文 B3L2</span>
+      <h1>課文理解線上練習</h1>
+    </header>
+
+    <!-- Progress Tracker -->
+    <div class="progress-panel" id="progress-panel">
+      <div class="progress-info">
+        <span class="progress-text">問題：<strong id="q-current">1</strong> / <span id="q-total">8</span></span>
+        <span class="percent-text" id="progress-percent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Question Box -->
+    <main class="question-card animate-slide-in" id="quiz-box">
+      <!-- Title -->
+      <h2 class="question-title" id="q-text">加載中...</h2>
+      
+      <!-- Choices -->
+      <div class="options-list" id="options-container">
+        <!-- Generated Dynamically -->
+      </div>
+      
+      <!-- Explanation (Hidden by default) -->
+      <div class="explanation-panel" id="explanation-box">
+        <div class="explanation-title">
+          <span>💡 課文解析：</span>
+        </div>
+        <p id="explanation-text"></p>
+      </div>
+
+      <!-- Action Panel (Submit/Next) -->
+      <div class="actions-panel">
+        <button class="btn btn-primary" id="action-btn" disabled>
+          下一題 <span class="btn-icon">➔</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Score Summary Screen -->
+    <div class="score-screen" id="score-box">
+      <div class="trophy-icon" id="trophy-emoji">🏆</div>
+      <h2 class="score-title" id="score-headline">答題完成！</h2>
+      <p class="score-message" id="score-summary"></p>
+      
+      <!-- Radial Progress Score Display -->
+      <div class="radial-progress-wrapper">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#6366f1" />
+              <stop offset="100%" stop-color="#a855f7" />
+            </linearGradient>
+          </defs>
+          <circle class="circle-bg" cx="70" cy="70" r="60" />
+          <circle class="circle-bar" id="radial-progress-bar" cx="70" cy="70" r="60" />
+        </svg>
+        <div class="score-display">
+          <span class="score-value" id="score-percentage">0%</span>
+          <span class="score-label">正確率</span>
+        </div>
+      </div>
+
+      <!-- Stats Cell Board -->
+      <div class="stats-board">
+        <div class="stat-cell">
+          <span class="stat-value" id="stat-total-q">8</span>
+          <span class="stat-label">總題數</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-value correct-color" id="stat-correct">0</span>
+          <span class="stat-label">答對數</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-value wrong-color" id="stat-wrong">0</span>
+          <span class="stat-label">答錯數</span>
+        </div>
+      </div>
+
+      <!-- Control Button -->
+      <div class="actions-panel" style="width: 100%; max-width: 260px; justify-content: center; margin-top: 10px;">
+        <button class="btn btn-primary" id="restart-btn" style="width: 100%;">
+          再做一次 ↺
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer Credits -->
+    <footer>
+      <p>© 當代中文課程 第三冊 第二課 閱讀理解線上測驗</p>
+    </footer>
+  </div>
+
+  <script>
+    // --- Questions Database ---
+    const QUIZ_DATA = [
+      {
+        question: "1. 為什麼百貨公司今天人這麼多？",
+        options: [
+          "(A) 因為有新出的產品",
+          "(B) 因為現在是週年慶，商品有不錯的折扣",
+          "(C) 因為天氣很冷，大家來買外套",
+          "(D) 因為這家店有免費試吃的活動"
+        ],
+        answer: 1, // (B) is index 1
+        explanation: "何雅婷說：「現在百貨公司週年慶。一般來說，週年慶的時候大部分的商品都會有不錯的折扣。很多人趁這時候來買需要的東西，可以省不少錢。」"
+      },
+      {
+        question: "2. 關於試穿外套，何雅婷給了羅珊蒂什麼建議？",
+        options: [
+          "(A) 只要試穿那件咖啡色的外套就好",
+          "(B) 買黃色的外套就好，不用試穿",
+          "(C) 兩件（黃色和咖啡色）都拿去試穿看看",
+          "(D) 這兩件都不好看，換別的牌子試穿"
+        ],
+        answer: 2, // (C) is index 2
+        explanation: "何雅婷說：「妳還是兩件都拿去試穿吧。有時候得穿上才知道好看不好看。」"
+      },
+      {
+        question: "3. 店員說羅珊蒂穿的這件外套有什麼優點？",
+        options: [
+          "(A) 價格非常便宜",
+          "(B) 又輕又暖和",
+          "(C) 買一送一",
+          "(D) 是鴨毛做的"
+        ],
+        answer: 1, // (B) is index 1
+        explanation: "店員說這件外套：「大小、長短都很合適，顏色也好看，而且是羊毛的，又輕又暖和。」"
+      },
+      {
+        question: "4. 這件外套原本的價格（原價）是多少錢？",
+        options: [
+          "(A) 3,500 元",
+          "(B) 3,510 元",
+          "(C) 3,900 元",
+          "(D) 3,000 元"
+        ],
+        answer: 2, // (C) is index 2
+        explanation: "店員提到：「原價 3,900，現在九折，打完折 3,510，算妳 3,500。」所以原價是 3,900 元。"
+      },
+      {
+        question: "5. 店員說「算妳 3,500 元」是打幾折後的價格？",
+        options: [
+          "(A) 大約八折",
+          "(B) 大約九折",
+          "(C) 大約九五折",
+          "(D) 大約八五折"
+        ],
+        answer: 1, // (B) is index 1
+        explanation: "這件外套原價 3,900 元打九折是 3,510 元，店員便宜去尾數算 3,500 元，所以是大約九折。"
+      },
+      {
+        question: "6. 何雅婷問「廣告上不是寫八折嗎？」，店員怎麼解釋？",
+        options: [
+          "(A) 廣告寫錯了，現在沒有八折的商品",
+          "(B) 只有付現金才能打八折",
+          "(C) 廣告上寫的是「八折起」，這件外套只打九折",
+          "(D) 明天開始才打八折"
+        ],
+        answer: 2, // (C) is index 2
+        explanation: "店員回答：「不好意思，是八折起。那件八折，可是這件打九折。」說明不同商品的折扣不同。"
+      },
+      {
+        question: "7. 羅珊蒂最後決定用什麼方式付款？為什麼？",
+        options: [
+          "(A) 付現金，因為沒有帶信用卡",
+          "(B) 刷 Visa 卡，可以再打九五折",
+          "(C) 刷 Visa 卡，因為忘了帶現金",
+          "(D) 用手機支付，因為可以省時間"
+        ],
+        answer: 1, // (B) is index 1
+        explanation: "店員說：「今天刷 Visa 卡，可以再打九五折。」所以羅珊蒂決定「那就刷卡」。"
+      },
+      {
+        question: "8. 下列關於羅珊蒂，哪一個是正確的？",
+        options: [
+          "(A) 羅珊蒂最後兩件外套都買了",
+          "(B) 羅珊蒂沒辦法退換貨，因為沒有發票",
+          "(C) 羅珊蒂最後買了羊毛外套",
+          "(D) 羅珊蒂覺得店員服務品質好"
+        ],
+        answer: 2, // (C) is index 2
+        explanation: "羅珊蒂說「我比較喜歡那件咖啡色的」，店員介紹這件外套「是羊毛的，又輕又暖和」，最後羅珊蒂刷卡買下這件外套，因此她買了羊毛外套。"
+      }
+    ];
+
+    // --- State variables ---
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedOptionIndex = null;
+    let isQuestionAnswered = false;
+
+    // --- DOM Elements ---
+    const quizBox = document.getElementById('quiz-box');
+    const scoreBox = document.getElementById('score-box');
+    const progressPanel = document.getElementById('progress-panel');
+    
+    const qText = document.getElementById('q-text');
+    const optionsContainer = document.getElementById('options-container');
+    const explanationBox = document.getElementById('explanation-box');
+    const explanationText = document.getElementById('explanation-text');
+    const actionBtn = document.getElementById('action-btn');
+    
+    const qCurrent = document.getElementById('q-current');
+    const qTotal = document.getElementById('q-total');
+    const progressPercent = document.getElementById('progress-percent');
+    const progressFill = document.getElementById('progress-fill');
+
+    // Score Summary Elements
+    const trophyEmoji = document.getElementById('trophy-emoji');
+    const scoreHeadline = document.getElementById('score-headline');
+    const scoreSummary = document.getElementById('score-summary');
+    const scorePercentageText = document.getElementById('score-percentage');
+    const radialProgressBar = document.getElementById('radial-progress-bar');
+    const statTotalQ = document.getElementById('stat-total-q');
+    const statCorrect = document.getElementById('stat-correct');
+    const statWrong = document.getElementById('stat-wrong');
+    const restartBtn = document.getElementById('restart-btn');
+
+    // --- Functions ---
+    const initQuiz = () => {
+      currentQuestionIndex = 0;
+      score = 0;
+      isQuestionAnswered = false;
+      selectedOptionIndex = null;
+
+      // Reset DOM structures
+      scoreBox.style.display = 'none';
+      quizBox.style.display = 'flex';
+      progressPanel.classList.remove('hidden');
+
+      qTotal.textContent = QUIZ_DATA.length;
+      statTotalQ.textContent = QUIZ_DATA.length;
+      
+      loadQuestion();
+    };
+
+    const loadQuestion = () => {
+      isQuestionAnswered = false;
+      selectedOptionIndex = null;
+      actionBtn.disabled = true;
+      actionBtn.innerHTML = `下一題 <span class="btn-icon">➔</span>`;
+
+      // Hide explanation
+      explanationBox.style.display = 'none';
+
+      // Retrieve item
+      const currentQData = QUIZ_DATA[currentQuestionIndex];
+
+      // Update question text
+      qText.textContent = currentQData.question;
+
+      // Update progress panel
+      const displayNum = currentQuestionIndex + 1;
+      qCurrent.textContent = displayNum;
+      
+      const percent = Math.round((currentQuestionIndex / QUIZ_DATA.length) * 100);
+      progressPercent.textContent = `${percent}%`;
+      progressFill.style.width = `${percent}%`;
+
+      // Render options
+      optionsContainer.innerHTML = '';
+      currentQData.options.forEach((optText, idx) => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.innerHTML = `
+          <span>${optText}</span>
+          <span class="icon-marker" id="marker-${idx}"></span>
+        `;
+        button.addEventListener('click', () => handleOptionClick(idx));
+        optionsContainer.appendChild(button);
+      });
+
+      // Animate slide in
+      quizBox.classList.remove('animate-slide-in');
+      void quizBox.offsetWidth; // Force layout refresh
+      quizBox.classList.add('animate-slide-in');
+    };
+
+    const handleOptionClick = (optionIdx) => {
+      if (isQuestionAnswered) return;
+
+      selectedOptionIndex = optionIdx;
+      isQuestionAnswered = true;
+
+      const currentQData = QUIZ_DATA[currentQuestionIndex];
+      const isCorrect = (optionIdx === currentQData.answer);
+      const optionButtons = optionsContainer.querySelectorAll('.option-btn');
+
+      // Play internal pop click
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.setValueAtTime(isCorrect ? 600 : 250, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.12);
+      } catch (e) {}
+
+      if (isCorrect) {
+        score++;
+        // Style selected option as correct
+        optionButtons[optionIdx].classList.add('correct');
+        optionButtons[optionIdx].querySelector('.icon-marker').textContent = '✓';
+      } else {
+        // Style selected option as wrong
+        optionButtons[optionIdx].classList.add('wrong');
+        optionButtons[optionIdx].querySelector('.icon-marker').textContent = '✗';
+        
+        // Style the actual correct option
+        optionButtons[currentQData.answer].classList.add('correct');
+        optionButtons[currentQData.answer].querySelector('.icon-marker').textContent = '✓';
+      }
+
+      // Dim other options
+      optionButtons.forEach((btn, idx) => {
+        btn.classList.add('answered');
+        if (idx !== optionIdx && idx !== currentQData.answer) {
+          btn.classList.add('dimmed');
+        }
+      });
+
+      // Show explanation text
+      explanationText.textContent = currentQData.explanation;
+      explanationBox.style.display = 'block';
+
+      // Update actions panel button
+      actionBtn.disabled = false;
+      if (currentQuestionIndex === QUIZ_DATA.length - 1) {
+        actionBtn.innerHTML = `查看結果 <span class="btn-icon">🏁</span>`;
+      }
+    };
+
+    const handleNextBtnClick = () => {
+      if (currentQuestionIndex < QUIZ_DATA.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    };
+
+    const showResults = () => {
+      // Hide questions
+      quizBox.style.display = 'none';
+      progressPanel.classList.add('hidden');
+
+      // Load correct figures
+      const finalPercentage = Math.round((score / QUIZ_DATA.length) * 100);
+      scorePercentageText.textContent = `${finalPercentage}%`;
+      statCorrect.textContent = score;
+      statWrong.textContent = QUIZ_DATA.length - score;
+
+      // Radial bar animation
+      // stroke-dasharray: 377. Dash offset = 377 - (377 * percent / 100)
+      const offset = 377 - (377 * finalPercentage / 100);
+      radialProgressBar.style.strokeDashoffset = offset;
+
+      // Headline and trophy config based on score
+      if (finalPercentage === 100) {
+        trophyEmoji.textContent = '👑';
+        scoreHeadline.textContent = '太完美了！100分！';
+        scoreSummary.textContent = '您完全掌握了這篇對話的內容，每一題都回答得十分精確！';
+        createConfetti();
+      } else if (finalPercentage >= 80) {
+        trophyEmoji.textContent = '🏆';
+        scoreHeadline.textContent = '太棒了！成績優異！';
+        scoreSummary.textContent = '您對課文的理解非常深刻，只有細微的粗心，請繼續保持！';
+        createConfetti();
+      } else if (finalPercentage >= 60) {
+        trophyEmoji.textContent = '👏';
+        scoreHeadline.textContent = '挑戰成功！通過測驗！';
+        scoreSummary.textContent = '您已掌握課文的核心資訊，可以點擊答案解析再複習一次錯題。';
+      } else {
+        trophyEmoji.textContent = '✍️';
+        scoreHeadline.textContent = '再接再厲，再試一次！';
+        scoreSummary.textContent = '有些課文細節可能混淆了，別氣餒，點擊重新挑戰或再看一遍對話吧！';
+      }
+
+      // Show score board
+      scoreBox.style.display = 'flex';
+
+      // Play final celebration sound if passed
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = audioCtx.currentTime;
+        const notes = finalPercentage >= 60 ? [261.63, 329.63, 392.00, 523.25] : [261.63, 220, 196]; // happy chord vs sad fall
+        notes.forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'triangle';
+          osc.frequency.value = freq;
+          const start = now + (i * 0.12);
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.setValueAtTime(0.06, start);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + 0.4);
+          osc.start(start);
+          osc.stop(start + 0.5);
+        });
+      } catch (e) {}
+    };
+
+    const createConfetti = () => {
+      const container = document.body;
+      const colors = ['#6366f1', '#a855f7', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899'];
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'confetti';
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        const size = Math.random() * 8 + 6;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        const delay = Math.random() * 1.5;
+        particle.style.animationDelay = `${delay}s`;
+        const duration = Math.random() * 2 + 1.5;
+        particle.style.animationDuration = `${duration}s`;
+        
+        container.appendChild(particle);
+        
+        setTimeout(() => {
+          particle.remove();
+        }, (delay + duration) * 1000);
+      }
+    };
+
+    // --- Action Listeners ---
+    actionBtn.addEventListener('click', handleNextBtnClick);
+    restartBtn.addEventListener('click', initQuiz);
+
+    // Initialize on start
+    initQuiz();
+  </script>
+</body>
+</html>
