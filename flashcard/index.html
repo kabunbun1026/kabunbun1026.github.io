@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>當代中文課程 — 詞彙多功能閃卡遊戲</title>
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Animated Background Shapes -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="game-container">
+    <!-- Header -->
+    <header class="game-header">
+      <div class="logo-area">
+        <span class="badge">當代中文課程</span>
+        <h1>詞彙閃卡遊戲</h1>
+      </div>
+      <!-- Audio Toggle Button -->
+      <button id="audio-toggle" class="icon-btn" title="切換音效">
+        <span class="icon">🔊</span>
+      </button>
+    </header>
+
+    <!-- Lesson Selection Panel -->
+    <div class="selection-panel">
+      <div class="panel-header">
+        <h2>選擇課堂</h2>
+        <div class="panel-actions">
+          <button id="select-all-btn" class="text-btn">全選</button>
+          <button id="clear-all-btn" class="text-btn">清除</button>
+        </div>
+      </div>
+      <div class="lesson-pills" id="lesson-pills-container">
+        <!-- Generated dynamically via script.js -->
+      </div>
+    </div>
+
+    <!-- Mode Selector Tabs -->
+    <div class="tabs-container">
+      <button class="tab-btn active" data-mode="dialogue">
+        <span class="tab-title">對話詞彙</span>
+        <span class="tab-count" id="count-dialogue">0 字</span>
+      </button>
+      <button class="tab-btn" data-mode="passage">
+        <span class="tab-title">短文詞彙</span>
+        <span class="tab-count" id="count-passage">0 字</span>
+      </button>
+      <button class="tab-btn" data-mode="combined">
+        <span class="tab-title">綜合詞彙</span>
+        <span class="tab-count" id="count-combined">0 字</span>
+      </button>
+    </div>
+
+    <!-- Status Panel -->
+    <div class="status-panel">
+      <div class="progress-info">
+        <span class="status-text">進度：<strong id="current-index">0</strong> / <span id="total-count">0</span></span>
+        <span class="percent-text" id="percent-display">0%</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Card Area -->
+    <div class="card-area">
+      <div class="flashcard-3d-wrap" id="card-trigger">
+        <div class="flashcard" id="flashcard">
+          <!-- Card Content -->
+          <div class="card-face">
+            <div class="card-corner-decor border-tl"></div>
+            <div class="card-corner-decor border-tr"></div>
+            <div class="card-corner-decor border-bl"></div>
+            <div class="card-corner-decor border-br"></div>
+            
+            <div class="card-body">
+              <h2 id="vocab-word">準備</h2>
+            </div>
+            
+            <div class="card-footer">
+              <span class="hint-text" id="game-hint">💡 請選擇至少一課並點擊卡片以開始！</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completion Screen (Hidden by default) -->
+    <div class="completion-screen hidden" id="completion-screen">
+      <div class="completion-card">
+        <div class="trophy-icon">🏆</div>
+        <h2>恭喜完成遊戲！</h2>
+        <p id="completion-summary">您已成功認讀所選課程的全部詞彙！</p>
+        
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-val" id="stat-total">0</span>
+            <span class="stat-lbl">完成詞彙</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">100%</span>
+            <span class="stat-lbl">記憶度</span>
+          </div>
+        </div>
+
+        <div class="btn-group centered">
+          <button class="btn btn-primary" id="restart-btn">
+            <span class="btn-icon">↺</span> 再玩一次
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controller Controls -->
+    <div class="controls-panel" id="controls-panel">
+      <button class="btn btn-secondary" id="prev-btn" disabled>
+        <span class="btn-icon">←</span> 上一個
+      </button>
+      
+      <button class="btn btn-primary btn-large" id="next-btn">
+        開始抽詞 <span class="btn-icon">🎰</span>
+      </button>
+      
+      <button class="btn btn-ghost" id="reset-btn" title="重新開始">
+        <span class="btn-icon">↺</span> 重設
+      </button>
+    </div>
+    
+    <!-- Footer credits -->
+    <footer class="credits">
+      <p>當代中文課程 跨課別詞彙自我檢測工具</p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
