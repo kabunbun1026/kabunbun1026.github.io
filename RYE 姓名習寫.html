@@ -2,110 +2,180 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RYE 姓名習寫</title>
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
   <style>
     body {
       font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
-      display: flex;
       margin: 0;
-      height: 100vh;
-      background-color: #fafafa;
+      padding: 0;
+      background-color: #f0f2f5;
+      color: #333;
     }
-    #sidebar {
-      width: 250px;
-      background: #ffffff;
-      border-right: 1px solid #e0e0e0;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-      overflow-y: auto;
+    
+    /* 視圖切換 */
+    :root {
+      --bg-color: #f0f2f5;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --title-color: #2c3e50;
+      --btn-bg: #ffffff;
+      --box-bg: #ffffff;
+      --box-border: #e74c3c;
+      --nav-bg: #ffffff;
+      --label-color: #34495e;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #121212;
+        --card-bg: #1e1e1e;
+        --text-color: #e0e0e0;
+        --title-color: #ecf0f1;
+        --btn-bg: #2a2a2a;
+        --box-bg: #2c2c2c;
+        --box-border: #c0392b;
+        --nav-bg: #1e1e1e;
+        --label-color: #bdc3c7;
+      }
+    }
+
+    body {
+      font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    
+    .view {
+      display: none;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .view.active {
+      display: block;
+    }
+
+    /* 首頁名單 */
+    .header-title {
+      text-align: center;
+      color: var(--title-color);
+      font-size: 28px;
+      margin-bottom: 25px;
+      margin-top: 10px;
+    }
+    .student-list {
       display: flex;
       flex-direction: column;
-    }
-    #sidebar h2 {
-      text-align: center;
-      color: #2c3e50;
-      padding: 20px 0;
-      margin: 0;
-      border-bottom: 1px solid #eee;
-      background: #f8f9fa;
+      gap: 15px;
+      padding-bottom: 40px;
     }
     .student-btn {
-      display: block;
-      width: 100%;
-      padding: 15px 20px;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
       border: none;
-      background: none;
-      text-align: left;
-      font-size: 18px;
-      color: #34495e;
+      border-radius: 12px;
+      background-color: var(--btn-bg);
+      color: var(--title-color);
       cursor: pointer;
-      border-bottom: 1px solid #eee;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-left: 6px solid #3498db;
+      text-align: left;
       transition: background 0.2s;
     }
-    .student-btn:hover {
-      background: #f1f2f6;
+    .student-btn:active {
+      opacity: 0.8;
     }
-    .student-btn.active {
-      background: #3498db;
-      color: #fff;
-      font-weight: bold;
+
+    /* 練習頁面 */
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      background: var(--nav-bg);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 10px;
+      z-index: 100;
     }
-    #content {
+    .back-btn {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #95a5a6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .student-title {
       flex: 1;
-      padding: 40px;
-      overflow-y: auto;
-    }
-    #content h1 {
       text-align: center;
-      color: #2c3e50;
-      margin-bottom: 40px;
-      font-size: 36px;
+      font-size: 26px;
+      margin: 0;
+      color: var(--title-color);
+      font-weight: bold;
+      padding-right: 50px;
     }
+
     .char-container {
       display: flex;
-      justify-content: center;
-      gap: 50px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 30px;
+      padding-bottom: 40px;
     }
     .char-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 25px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
     .phonetic {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       text-align: center;
     }
     .zhuyin {
-      font-size: 28px;
+      font-size: 32px;
       color: #e67e22;
       font-weight: bold;
       margin-bottom: 5px;
     }
     .pinyin {
-      font-size: 20px;
-      color: #2980b9;
+      font-size: 22px;
+      color: #3498db;
+    }
+    
+    .hw-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 25px;
     }
     .label {
-      font-size: 16px;
-      color: #7f8c8d;
-      margin-top: 15px;
-      margin-bottom: 8px;
+      font-size: 18px;
+      color: var(--label-color);
+      margin-bottom: 12px;
       font-weight: bold;
+      text-align: center;
     }
+    
     .hw-box {
       position: relative;
-      width: 180px;
-      height: 180px;
-      border: 3px solid #e74c3c;
-      background-color: #fff;
+      width: 200px;
+      height: 200px;
+      border: 3px solid var(--box-border);
+      background-color: var(--box-bg);
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 8px;
     }
     .hw-grid {
       position: absolute;
@@ -115,39 +185,41 @@
       height: 100%;
       pointer-events: none;
     }
+    
     .controls {
       margin-top: 15px;
     }
     .controls button {
-      padding: 8px 16px;
+      padding: 12px 24px;
       background: #2ecc71;
       color: #fff;
       border: none;
-      border-radius: 4px;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .controls button:hover {
+    .controls button:active {
       background: #27ae60;
-    }
-    .welcome {
-      text-align: center;
-      color: #7f8c8d;
-      margin-top: 20%;
-      font-size: 24px;
     }
   </style>
 </head>
 <body>
 
-  <div id="sidebar">
-    <h2>學生名單</h2>
-    <div id="student-list"></div>
+  <!-- 首頁視圖：名單 -->
+  <div id="home-view" class="view active">
+    <h1 class="header-title">選擇學生姓名</h1>
+    <div id="student-list" class="student-list"></div>
   </div>
 
-  <div id="content">
-    <div class="welcome">請從左側選擇一位學生開始練習！</div>
+  <!-- 練習視圖 -->
+  <div id="practice-view" class="view">
+    <div class="nav-bar">
+      <button class="back-btn" onclick="showHome()">❮ 返回</button>
+      <h2 class="student-title" id="practice-title">名字</h2>
+    </div>
+    <div class="char-container" id="char-container"></div>
   </div>
 
   <script>
@@ -258,34 +330,49 @@
         const btn = document.createElement('button');
         btn.className = 'student-btn';
         btn.innerText = student.name;
-        btn.onclick = () => selectStudent(index, btn);
+        btn.onclick = () => showPractice(index);
         listDiv.appendChild(btn);
       });
     }
 
-    function selectStudent(index, btnElem) {
-      // Update active button
-      document.querySelectorAll('.student-btn').forEach(btn => btn.classList.remove('active'));
-      if (btnElem) btnElem.classList.add('active');
+    function showHome() {
+      document.getElementById('practice-view').classList.remove('active');
+      document.getElementById('home-view').classList.add('active');
+      document.getElementById('char-container').innerHTML = '';
+      window.quizWriters = {};
+    }
 
+    function showPractice(index) {
+      document.getElementById('home-view').classList.remove('active');
+      document.getElementById('practice-view').classList.add('active');
+      
       const student = students[index];
-      const content = document.getElementById('content');
+      document.getElementById('practice-title').innerText = student.name;
       
-      content.innerHTML = `<h1>${student.name}</h1><div class="char-container" id="char-container"></div>`;
       const container = document.getElementById('char-container');
+      container.innerHTML = '';
+      window.quizWriters = {};
+
+      // 偵測是否為深色模式，決定不同的顏色配置
+      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       
-      window.quizWriters = {}; // reset quiz writers
+      // 筆畫顏色配置
+      const animStrokeColor = isDarkMode ? '#e0e0e0' : '#333333';
+      const animRadicalColor = isDarkMode ? '#ff7675' : '#e74c3c';
+      const quizStrokeColor = isDarkMode ? '#ffffff' : '#333333';
+      const quizDrawingColor = isDarkMode ? '#74b9ff' : '#3498db';
+      const gridColor = isDarkMode ? '#5c3a3a' : '#fbdada';
 
       student.chars.forEach((charInfo, i) => {
         const card = document.createElement('div');
         card.className = 'char-card';
         
         const gridSvg = `
-          <svg class="hw-grid" xmlns="http://www.w3.org/2000/svg" width="180" height="180">
-            <line x1="0" y1="0" x2="180" y2="180" stroke="#fbdada" stroke-width="2" />
-            <line x1="180" y1="0" x2="0" y2="180" stroke="#fbdada" stroke-width="2" />
-            <line x1="90" y1="0" x2="90" y2="180" stroke="#fbdada" stroke-width="2" stroke-dasharray="6" />
-            <line x1="0" y1="90" x2="180" y2="90" stroke="#fbdada" stroke-width="2" stroke-dasharray="6" />
+          <svg class="hw-grid" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+            <line x1="0" y1="0" x2="200" y2="200" stroke="${gridColor}" stroke-width="2" />
+            <line x1="200" y1="0" x2="0" y2="200" stroke="${gridColor}" stroke-width="2" />
+            <line x1="100" y1="0" x2="100" y2="200" stroke="${gridColor}" stroke-width="2" stroke-dasharray="6" />
+            <line x1="0" y1="100" x2="200" y2="100" stroke="${gridColor}" stroke-width="2" stroke-dasharray="6" />
           </svg>
         `;
 
@@ -295,31 +382,37 @@
             <div class="pinyin">${charInfo.pinyin}</div>
           </div>
           
-          <div class="label">筆順動畫 (點擊可重播)</div>
-          <div class="hw-box" id="anim-${i}">
-            ${gridSvg}
+          <div class="hw-section">
+            <div class="label">筆順教學動畫</div>
+            <div class="hw-box" id="anim-${i}">
+              ${gridSvg}
+            </div>
+            <div style="font-size: 14px; color: #95a5a6; margin-top: 5px;">(點擊格子可重播)</div>
           </div>
           
-          <div class="label">練習描寫 (用滑鼠/手指寫字)</div>
-          <div class="hw-box" id="quiz-${i}">
-            ${gridSvg}
-          </div>
-          <div class="controls">
-            <button onclick="window.quizWriters[${i}].quiz()">清除重寫</button>
+          <div class="hw-section">
+            <div class="label">動手寫寫看</div>
+            <div class="hw-box" id="quiz-${i}">
+              ${gridSvg}
+            </div>
+            <div class="controls">
+              <button onclick="window.quizWriters[${i}].quiz()">清除重寫</button>
+            </div>
           </div>
         `;
         container.appendChild(card);
         
-        // Render Animation
+        // Render Animation Writer
         const animWriter = HanziWriter.create(`anim-${i}`, charInfo.char, {
-          width: 180,
-          height: 180,
+          width: 200,
+          height: 200,
           padding: 10,
           delayBetweenStrokes: 150,
           strokeAnimationSpeed: 1.5,
           showOutline: true,
-          strokeColor: '#333333',
-          radicalColor: '#e74c3c'
+          strokeColor: animStrokeColor,
+          radicalColor: animRadicalColor,
+          outlineColor: isDarkMode ? '#444444' : '#dddddd'
         });
         
         animWriter.loopCharacterAnimation();
@@ -328,25 +421,27 @@
           animWriter.animateCharacter();
         });
 
-        // Render Quiz (Tracing)
+        // Render Quiz (Tracing) Writer
         const quizWriter = HanziWriter.create(`quiz-${i}`, charInfo.char, {
-          width: 180,
-          height: 180,
+          width: 200,
+          height: 200,
           padding: 10,
           showOutline: true,
-          strokeColor: '#333333',
+          strokeColor: quizStrokeColor,
           showHintAfterMisses: 1,
           highlightOnComplete: true,
           drawingWidth: 15,
-          drawingColor: '#3498db'
+          drawingColor: quizDrawingColor,
+          outlineColor: isDarkMode ? '#444444' : '#dddddd'
         });
         
         quizWriter.quiz();
         window.quizWriters[i] = quizWriter;
       });
+      
+      window.scrollTo(0, 0);
     }
 
-    // Initialize the sidebar
     init();
   </script>
 </body>
