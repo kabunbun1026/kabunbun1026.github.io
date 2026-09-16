@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RYE 姓名習寫</title>
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+  <style>
+    body {
+      font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+      display: flex;
+      margin: 0;
+      height: 100vh;
+      background-color: #fafafa;
+    }
+    #sidebar {
+      width: 250px;
+      background: #ffffff;
+      border-right: 1px solid #e0e0e0;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    #sidebar h2 {
+      text-align: center;
+      color: #2c3e50;
+      padding: 20px 0;
+      margin: 0;
+      border-bottom: 1px solid #eee;
+      background: #f8f9fa;
+    }
+    .student-btn {
+      display: block;
+      width: 100%;
+      padding: 15px 20px;
+      border: none;
+      background: none;
+      text-align: left;
+      font-size: 18px;
+      color: #34495e;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+    }
+    .student-btn:hover {
+      background: #f1f2f6;
+    }
+    .student-btn.active {
+      background: #3498db;
+      color: #fff;
+      font-weight: bold;
+    }
+    #content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
+    #content h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+      font-size: 36px;
+    }
+    .char-container {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .char-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .phonetic {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .zhuyin {
+      font-size: 28px;
+      color: #e67e22;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .pinyin {
+      font-size: 20px;
+      color: #2980b9;
+    }
+    .label {
+      font-size: 16px;
+      color: #7f8c8d;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .hw-box {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      border: 3px solid #e74c3c;
+      background-color: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .hw-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .controls {
+      margin-top: 15px;
+    }
+    .controls button {
+      padding: 8px 16px;
+      background: #2ecc71;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .controls button:hover {
+      background: #27ae60;
+    }
+    .welcome {
+      text-align: center;
+      color: #7f8c8d;
+      margin-top: 20%;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar">
+    <h2>學生名單</h2>
+    <div id="student-list"></div>
+  </div>
+
+  <div id="content">
+    <div class="welcome">請從左側選擇一位學生開始練習！</div>
+  </div>
+
+  <script>
+    const students = [
+      {
+        name: "吳尚得",
+        chars: [
+          { char: "吳", pinyin: "Wú", zhuyin: "ㄨˊ" },
+          { char: "尚", pinyin: "Shàng", zhuyin: "ㄕㄤˋ" },
+          { char: "得", pinyin: "Dé", zhuyin: "ㄉㄜˊ" }
+        ]
+      },
+      {
+        name: "黃薇笑",
+        chars: [
+          { char: "黃", pinyin: "Huáng", zhuyin: "ㄏㄨㄤˊ" },
+          { char: "薇", pinyin: "Wéi", zhuyin: "ㄨㄟˊ" },
+          { char: "笑", pinyin: "Xiào", zhuyin: "ㄒㄧㄠˋ" }
+        ]
+      },
+      {
+        name: "湯莫兒",
+        chars: [
+          { char: "湯", pinyin: "Tāng", zhuyin: "ㄊㄤ" },
+          { char: "莫", pinyin: "Mò", zhuyin: "ㄇㄛˋ" },
+          { char: "兒", pinyin: "Ér", zhuyin: "ㄦˊ" }
+        ]
+      },
+      {
+        name: "王可芯",
+        chars: [
+          { char: "王", pinyin: "Wáng", zhuyin: "ㄨㄤˊ" },
+          { char: "可", pinyin: "Kě", zhuyin: "ㄎㄜˇ" },
+          { char: "芯", pinyin: "Xīn", zhuyin: "ㄒㄧㄣ" }
+        ]
+      },
+      {
+        name: "陳嘉娜",
+        chars: [
+          { char: "陳", pinyin: "Chén", zhuyin: "ㄔㄣˊ" },
+          { char: "嘉", pinyin: "Jiā", zhuyin: "ㄐㄧㄚ" },
+          { char: "娜", pinyin: "Nà", zhuyin: "ㄋㄚˋ" }
+        ]
+      },
+      {
+        name: "賈蔓莉",
+        chars: [
+          { char: "賈", pinyin: "Jiǎ", zhuyin: "ㄐㄧㄚˇ" },
+          { char: "蔓", pinyin: "Màn", zhuyin: "ㄇㄢˋ" },
+          { char: "莉", pinyin: "Lì", zhuyin: "ㄌㄧˋ" }
+        ]
+      },
+      {
+        name: "蕭玫拉",
+        chars: [
+          { char: "蕭", pinyin: "Xiāo", zhuyin: "ㄒㄧㄠ" },
+          { char: "玫", pinyin: "Méi", zhuyin: "ㄇㄟˊ" },
+          { char: "拉", pinyin: "Lā", zhuyin: "ㄌㄚ" }
+        ]
+      },
+      {
+        name: "陳立莉",
+        chars: [
+          { char: "陳", pinyin: "Chén", zhuyin: "ㄔㄣˊ" },
+          { char: "立", pinyin: "Lì", zhuyin: "ㄌㄧˋ" },
+          { char: "莉", pinyin: "Lì", zhuyin: "ㄌㄧˋ" }
+        ]
+      },
+      {
+        name: "傅凱倫",
+        chars: [
+          { char: "傅", pinyin: "Fù", zhuyin: "ㄈㄨˋ" },
+          { char: "凱", pinyin: "Kǎi", zhuyin: "ㄎㄞˇ" },
+          { char: "倫", pinyin: "Lún", zhuyin: "ㄌㄨㄣˊ" }
+        ]
+      },
+      {
+        name: "曾翠西",
+        chars: [
+          { char: "曾", pinyin: "Zēng", zhuyin: "ㄗㄥ" },
+          { char: "翠", pinyin: "Cuì", zhuyin: "ㄘㄨㄟˋ" },
+          { char: "西", pinyin: "Xī", zhuyin: "ㄒㄧ" }
+        ]
+      },
+      {
+        name: "林莉莎",
+        chars: [
+          { char: "林", pinyin: "Lín", zhuyin: "ㄌㄧㄣˊ" },
+          { char: "莉", pinyin: "Lì", zhuyin: "ㄌㄧˋ" },
+          { char: "莎", pinyin: "Shā", zhuyin: "ㄕㄚ" }
+        ]
+      },
+      {
+        name: "吳心宇",
+        chars: [
+          { char: "吳", pinyin: "Wú", zhuyin: "ㄨˊ" },
+          { char: "心", pinyin: "Xīn", zhuyin: "ㄒㄧㄣ" },
+          { char: "宇", pinyin: "Yǔ", zhuyin: "ㄩˇ" }
+        ]
+      }
+    ];
+
+    window.quizWriters = {};
+
+    function init() {
+      const listDiv = document.getElementById('student-list');
+      students.forEach((student, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'student-btn';
+        btn.innerText = student.name;
+        btn.onclick = () => selectStudent(index, btn);
+        listDiv.appendChild(btn);
+      });
+    }
+
+    function selectStudent(index, btnElem) {
+      // Update active button
+      document.querySelectorAll('.student-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElem) btnElem.classList.add('active');
+
+      const student = students[index];
+      const content = document.getElementById('content');
+      
+      content.innerHTML = `<h1>${student.name}</h1><div class="char-container" id="char-container"></div>`;
+      const container = document.getElementById('char-container');
+      
+      window.quizWriters = {}; // reset quiz writers
+
+      student.chars.forEach((charInfo, i) => {
+        const card = document.createElement('div');
+        card.className = 'char-card';
+        
+        const gridSvg = `
+          <svg class="hw-grid" xmlns="http://www.w3.org/2000/svg" width="180" height="180">
+            <line x1="0" y1="0" x2="180" y2="180" stroke="#fbdada" stroke-width="2" />
+            <line x1="180" y1="0" x2="0" y2="180" stroke="#fbdada" stroke-width="2" />
+            <line x1="90" y1="0" x2="90" y2="180" stroke="#fbdada" stroke-width="2" stroke-dasharray="6" />
+            <line x1="0" y1="90" x2="180" y2="90" stroke="#fbdada" stroke-width="2" stroke-dasharray="6" />
+          </svg>
+        `;
+
+        card.innerHTML = `
+          <div class="phonetic">
+            <div class="zhuyin">${charInfo.zhuyin}</div>
+            <div class="pinyin">${charInfo.pinyin}</div>
+          </div>
+          
+          <div class="label">筆順動畫 (點擊可重播)</div>
+          <div class="hw-box" id="anim-${i}">
+            ${gridSvg}
+          </div>
+          
+          <div class="label">練習描寫 (用滑鼠/手指寫字)</div>
+          <div class="hw-box" id="quiz-${i}">
+            ${gridSvg}
+          </div>
+          <div class="controls">
+            <button onclick="window.quizWriters[${i}].quiz()">清除重寫</button>
+          </div>
+        `;
+        container.appendChild(card);
+        
+        // Render Animation
+        const animWriter = HanziWriter.create(`anim-${i}`, charInfo.char, {
+          width: 180,
+          height: 180,
+          padding: 10,
+          delayBetweenStrokes: 150,
+          strokeAnimationSpeed: 1.5,
+          showOutline: true,
+          strokeColor: '#333333',
+          radicalColor: '#e74c3c'
+        });
+        
+        animWriter.loopCharacterAnimation();
+        
+        document.getElementById(`anim-${i}`).addEventListener('click', () => {
+          animWriter.animateCharacter();
+        });
+
+        // Render Quiz (Tracing)
+        const quizWriter = HanziWriter.create(`quiz-${i}`, charInfo.char, {
+          width: 180,
+          height: 180,
+          padding: 10,
+          showOutline: true,
+          strokeColor: '#333333',
+          showHintAfterMisses: 1,
+          highlightOnComplete: true,
+          drawingWidth: 15,
+          drawingColor: '#3498db'
+        });
+        
+        quizWriter.quiz();
+        window.quizWriters[i] = quizWriter;
+      });
+    }
+
+    // Initialize the sidebar
+    init();
+  </script>
+</body>
+</html>
