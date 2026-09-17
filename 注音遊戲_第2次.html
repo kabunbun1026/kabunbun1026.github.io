@@ -6,29 +6,28 @@
   <title>第 2 次注音練習</title>
   <style>
     body { font-family: 'Microsoft JhengHei', sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
-    h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; font-size: 22px; }
-    .subtitle { color: #7f8c8d; text-align: center; margin-bottom: 20px; font-size: 15px; }
+    h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; font-size: 24px; }
+    .subtitle { color: #7f8c8d; text-align: center; margin-bottom: 20px; font-size: 16px; }
     
-    .game-container { display: flex; flex-direction: column; gap: 30px; width: 100%; max-width: 400px; }
+    .game-container { display: flex; flex-direction: column; gap: 30px; width: 100%; max-width: 420px; }
     
     .group-container { display: flex; flex-direction: column; gap: 15px; background: #fafafa; padding: 15px; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
     
-    /* 讓 5 個元素自然變成 3 個一排、2 個一排 */
     .pinyin-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
     
-    .pinyin-item { display: flex; flex-direction: column; align-items: center; background: #fff; padding: 8px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); width: 85px; }
-    .pinyin-label { font-size: 16px; font-weight: bold; color: #3498db; text-align: center; margin-bottom: 2px; }
-    .hanzi-label { font-size: 15px; color: #7f8c8d; margin-bottom: 8px; font-weight: normal; }
+    .pinyin-item { display: flex; flex-direction: column; align-items: center; background: #fff; padding: 8px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); width: 95px; }
+    .pinyin-label { font-size: 18px; font-weight: bold; color: #3498db; text-align: center; margin-bottom: 4px; }
+    .hanzi-label { font-size: 20px; color: #2c3e50; margin-bottom: 8px; font-weight: bold; }
     
-    .drop-slot { width: 55px; height: 80px; border: 2px dashed #bdc3c7; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #fdfdfd; flex-shrink: 0; }
+    .drop-slot { width: 60px; height: 85px; border: 2px dashed #bdc3c7; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #fdfdfd; flex-shrink: 0; }
     .drop-slot.hovered { background: #e8f4f8; border-color: #3498db; }
     
-    .zhuyin-pool { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; background: #fff; padding: 10px; border-radius: 12px; border: 2px solid #ecf0f1; min-height: 90px; }
-    .zhuyin-tile { background: #fff; border: 2px solid #e67e22; border-radius: 8px; width: 55px; height: 80px; display: flex; align-items: center; justify-content: center; cursor: grab; box-shadow: 0 3px 5px rgba(0,0,0,0.1); user-select: none; }
+    .zhuyin-pool { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; background: #fff; padding: 12px; border-radius: 12px; border: 2px solid #ecf0f1; min-height: 90px; }
+    .zhuyin-tile { background: #fff; border: 2px solid #e67e22; border-radius: 8px; width: 60px; height: 85px; display: flex; align-items: center; justify-content: center; cursor: grab; box-shadow: 0 3px 5px rgba(0,0,0,0.1); user-select: none; }
     .zhuyin-tile:active { cursor: grabbing; opacity: 0.8; }
     
-    .zhuyin-col { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; position: relative; font-size: 20px; line-height: 1.1; font-family: 'Bopomofo', 'Microsoft JhengHei', sans-serif; font-weight: bold; color: #2c3e50; pointer-events: none; }
-    .z-tone { position: absolute; right: -0.6em; top: 50%; transform: translateY(-50%); font-size: 14px; }
+    .zhuyin-col { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; position: relative; font-size: 22px; line-height: 1.1; font-family: 'Bopomofo', 'Microsoft JhengHei', sans-serif; font-weight: bold; color: #2c3e50; pointer-events: none; }
+    .z-tone { position: absolute; right: -0.6em; top: 50%; transform: translateY(-50%); font-size: 16px; }
     .z-tone-0 { right: auto; top: -0.8em; left: 50%; transform: translateX(-50%); }
 
     .dragging { opacity: 0.5; }
@@ -48,7 +47,7 @@
   <button onclick="initGame()">重新開始</button>
 
   <script>
-    const allPairs = [{"id": 1, "pinyin": "d\u00e0", "hanzi": "\u5927 (\u5927\u5bb6)", "zhuyin": ["\u3109", "\u311a"], "tone": "\u02cb"}, {"id": 2, "pinyin": "d\u00e0o", "hanzi": "\u9053 (\u77e5\u9053)", "zhuyin": ["\u3109", "\u3120"], "tone": "\u02cb"}, {"id": 3, "pinyin": "t\u00f3ng", "hanzi": "\u540c (\u540c\u5b78)", "zhuyin": ["\u310a", "\u3128", "\u3125"], "tone": "\u02ca"}, {"id": 4, "pinyin": "T\u00e1i", "hanzi": "\u81fa (\u81fa\u7063)", "zhuyin": ["\u310a", "\u311e"], "tone": "\u02ca"}, {"id": 5, "pinyin": "t\u0101", "hanzi": "\u5979 (\u5979\u662f\u4e00)", "zhuyin": ["\u310a", "\u311a"], "tone": " "}, {"id": 6, "pinyin": "n\u01cei", "hanzi": "\u5976 (\u5976\u8336)", "zhuyin": ["\u310b", "\u311e"], "tone": "\u02c7"}, {"id": 7, "pinyin": "n\u01d0", "hanzi": "\u59b3 (\u59b3\u597d)", "zhuyin": ["\u310b", "\u3127"], "tone": "\u02c7"}, {"id": 8, "pinyin": "ne", "hanzi": "\u5462 (\u4f60\u5462)", "zhuyin": ["\u310b", "\u311c"], "tone": "\u02d9"}, {"id": 9, "pinyin": "n\u01ce", "hanzi": "\u54ea (\u54ea\u570b)", "zhuyin": ["\u310b", "\u311a"], "tone": "\u02c7"}, {"id": 10, "pinyin": "li\u00e0ng", "hanzi": "\u4eae (\u6f02\u4eae)", "zhuyin": ["\u310c", "\u3127", "\u3124"], "tone": "\u02cb"}];
+    const allPairs = [{"id": 1, "pinyin": "d\u00e0", "hanzi": "\u5927 (\u5927\u5bb6)", "zhuyin": ["\u3109", "\u311a"], "tone": "\u02cb"}, {"id": 2, "pinyin": "d\u00e0o", "hanzi": "\u9053 (\u77e5\u9053)", "zhuyin": ["\u3109", "\u3120"], "tone": "\u02cb"}, {"id": 3, "pinyin": "t\u00f3ng", "hanzi": "\u540c (\u540c\u5b78)", "zhuyin": ["\u310a", "\u3128", "\u3125"], "tone": "\u02ca"}, {"id": 4, "pinyin": "T\u00e1i", "hanzi": "\u81fa (\u81fa\u7063)", "zhuyin": ["\u310a", "\u311e"], "tone": "\u02ca"}, {"id": 5, "pinyin": "t\u0101", "hanzi": "\u5979 (\u5979\u662f)", "zhuyin": ["\u310a", "\u311a"], "tone": " "}, {"id": 6, "pinyin": "n\u01cei", "hanzi": "\u5976 (\u5976\u8336)", "zhuyin": ["\u310b", "\u311e"], "tone": "\u02c7"}, {"id": 7, "pinyin": "n\u01d0", "hanzi": "\u59b3 (\u59b3\u597d)", "zhuyin": ["\u310b", "\u3127"], "tone": "\u02c7"}, {"id": 8, "pinyin": "ne", "hanzi": "\u5462 (\u4f60\u5462)", "zhuyin": ["\u310b", "\u311c"], "tone": "\u02d9"}, {"id": 9, "pinyin": "n\u01ce", "hanzi": "\u54ea (\u54ea\u570b)", "zhuyin": ["\u310b", "\u311a"], "tone": "\u02c7"}, {"id": 10, "pinyin": "li\u00e0ng", "hanzi": "\u4eae (\u6f02\u4eae)", "zhuyin": ["\u310c", "\u3127", "\u3124"], "tone": "\u02cb"}];
     let correctCount = 0;
 
     function createZhuyinHTML(zhuyinArr, tone) {
@@ -83,7 +82,7 @@
       const poolTitle = document.createElement('div');
       poolTitle.style.textAlign = 'center';
       poolTitle.style.color = '#7f8c8d';
-      poolTitle.style.fontSize = '13px';
+      poolTitle.style.fontSize = '14px';
       poolTitle.innerText = `請將下方注音拖曳到上方框框`;
       
       const poolDiv = document.createElement('div');
