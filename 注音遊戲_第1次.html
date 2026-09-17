@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>第 1 次注音練習</title>
+  <style>
+    body { font-family: 'Microsoft JhengHei', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; font-size: 24px; }
+    .subtitle { color: #7f8c8d; text-align: center; margin-bottom: 25px; font-size: 16px; }
+    
+    .game-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 600px; }
+    
+    /* Pinyin Rows */
+    .pinyin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    @media (max-width: 480px) { .pinyin-grid { grid-template-columns: 1fr; } }
+    
+    .pinyin-slot-container { display: flex; align-items: center; gap: 10px; background: #fff; padding: 10px 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .pinyin-label { font-size: 20px; font-weight: bold; color: #3498db; flex: 1; display: flex; flex-direction: column; }
+    .hanzi-label { font-size: 18px; color: #7f8c8d; margin-top: 4px; font-weight: normal; }
+    .drop-slot { width: 60px; height: 90px; border: 2px dashed #bdc3c7; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #fafafa; flex-shrink: 0; }
+    .drop-slot.hovered { background: #e8f4f8; border-color: #3498db; }
+    
+    /* Zhuyin Pool */
+    .zhuyin-pool { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-top: 10px; min-height: 100px;}
+    .zhuyin-tile { background: #fff; border: 2px solid #e67e22; border-radius: 8px; width: 60px; height: 90px; display: flex; align-items: center; justify-content: center; cursor: grab; box-shadow: 0 4px 6px rgba(0,0,0,0.1); user-select: none; }
+    .zhuyin-tile:active { cursor: grabbing; opacity: 0.8; }
+    
+    .zhuyin-col { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; position: relative; font-size: 22px; line-height: 1.1; font-family: 'Bopomofo', 'Microsoft JhengHei', sans-serif; font-weight: bold; color: #2c3e50; pointer-events: none; }
+    .z-tone { position: absolute; right: -0.6em; top: 50%; transform: translateY(-50%); font-size: 16px; }
+    .z-tone-0 { right: auto; top: -0.8em; left: 50%; transform: translateX(-50%); }
+
+    .dragging { opacity: 0.5; }
+    .correct { border-color: #2ecc71 !important; background-color: #eafaf1 !important; }
+    
+    button { margin-top: 30px; padding: 12px 24px; font-size: 18px; background-color: #2ecc71; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    button:active { background-color: #27ae60; }
+  </style>
+</head>
+<body>
+
+  <h1>第 1 次注音練習</h1>
+  <div class="subtitle">目標：認識 ㄅ ㄆ ㄇ ㄈ 與 聲調</div>
+  
+  <div class="game-container">
+    <div class="pinyin-grid" id="pinyin-grid"></div>
+    
+    <div style="text-align: center; color: #7f8c8d; margin-top: 10px; font-size: 14px;">請將下方的注音拖曳到對應的框框中</div>
+    <div class="zhuyin-pool" id="zhuyin-pool"></div>
+  </div>
+  
+  <button onclick="initGame()">重新開始</button>
+
+  <script>
+    const pairs = [{"id": 1, "pinyin": "b\u011bn", "hanzi": "\u672c (\u65e5\u672c)", "zhuyin": ["\u3105", "\u3123"], "tone": "\u02c7"}, {"id": 2, "pinyin": "b\u00fa", "hanzi": "\u4e0d (\u4e0d\u5ba2\u6c23)", "zhuyin": ["\u3105", "\u3128"], "tone": "\u02ca"}, {"id": 3, "pinyin": "pi\u00e0o", "hanzi": "\u6f02 (\u6f02\u4eae)", "zhuyin": ["\u3106", "\u3127", "\u3120"], "tone": "\u02cb"}, {"id": 4, "pinyin": "p\u00e9ng", "hanzi": "\u670b (\u670b\u53cb)", "zhuyin": ["\u3106", "\u3125"], "tone": "\u02ca"}, {"id": 5, "pinyin": "m\u011bi", "hanzi": "\u7f8e (\u7f8e\u570b)", "zhuyin": ["\u3107", "\u311f"], "tone": "\u02c7"}, {"id": 6, "pinyin": "m\u00edng", "hanzi": "\u540d (\u540d\u5b57)", "zhuyin": ["\u3107", "\u3127", "\u3125"], "tone": "\u02ca"}, {"id": 7, "pinyin": "me", "hanzi": "\u9ebc (\u4ec0\u9ebc)", "zhuyin": ["\u3107", "\u311c"], "tone": "\u02d9"}, {"id": 8, "pinyin": "ma", "hanzi": "\u55ce (\u597d\u55ce)", "zhuyin": ["\u3107", "\u311a"], "tone": "\u02d9"}, {"id": 9, "pinyin": "h\u01ceo", "hanzi": "\u597d (\u4f60\u597d)", "zhuyin": ["\u310f", "\u3120"], "tone": "\u02c7"}, {"id": 10, "pinyin": "x\u012bn", "hanzi": "\u65b0 (\u65b0\u540c\u5b78)", "zhuyin": ["\u3112", "\u3127", "\u3123"], "tone": " "}];
+    let correctCount = 0;
+
+    function createZhuyinHTML(zhuyinArr, tone) {
+      let charsHTML = zhuyinArr.map(c => `<div class="z-char">${c}</div>`).join('');
+      let toneClass = tone === '˙' ? 'z-tone z-tone-0' : 'z-tone';
+      let toneHTML = tone && tone !== ' ' ? `<div class="${toneClass}">${tone}</div>` : '';
+      return `<div class="zhuyin-col">${charsHTML}${toneHTML}</div>`;
+    }
+
+    function initGame() {
+      const pinyinGrid = document.getElementById('pinyin-grid');
+      const zhuyinPool = document.getElementById('zhuyin-pool');
+      pinyinGrid.innerHTML = '';
+      zhuyinPool.innerHTML = '';
+      correctCount = 0;
+
+      pairs.forEach(p => {
+        const row = document.createElement('div');
+        row.className = 'pinyin-slot-container';
+        row.innerHTML = `
+          <div class="pinyin-label">
+            ${p.pinyin}
+            <div class="hanzi-label">${p.hanzi}</div>
+          </div>
+          <div class="drop-slot" data-id="${p.id}"></div>
+        `;
+        pinyinGrid.appendChild(row);
+      });
+
+      let shuffled = [...pairs].sort(() => Math.random() - 0.5);
+      shuffled.forEach(p => {
+        const tile = document.createElement('div');
+        tile.className = 'zhuyin-tile';
+        tile.draggable = true;
+        tile.dataset.id = p.id;
+        tile.innerHTML = createZhuyinHTML(p.zhuyin, p.tone);
+        
+        tile.addEventListener('dragstart', dragStart);
+        tile.addEventListener('dragend', dragEnd);
+        tile.addEventListener('touchstart', touchStart, {passive: false});
+        tile.addEventListener('touchmove', touchMove, {passive: false});
+        tile.addEventListener('touchend', touchEnd);
+
+        zhuyinPool.appendChild(tile);
+      });
+      setupDropSlots();
+    }
+
+    let draggedItem = null;
+    function dragStart(e) { draggedItem = this; setTimeout(() => this.classList.add('dragging'), 0); }
+    function dragEnd() { this.classList.remove('dragging'); draggedItem = null; }
+
+    function setupDropSlots() {
+      const slots = document.querySelectorAll('.drop-slot');
+      slots.forEach(slot => {
+        slot.addEventListener('dragover', e => { e.preventDefault(); if (!slot.hasChildNodes()) slot.classList.add('hovered'); });
+        slot.addEventListener('dragleave', () => slot.classList.remove('hovered'));
+        slot.addEventListener('drop', function(e) {
+          e.preventDefault(); this.classList.remove('hovered'); handleDrop(draggedItem, this);
+        });
+      });
+    }
+
+    let touchEl = null, initialX = 0, initialY = 0;
+    function touchStart(e) {
+      if(this.parentElement.classList.contains('drop-slot')) return;
+      touchEl = this;
+      const touch = e.touches[0];
+      const rect = touchEl.getBoundingClientRect();
+      initialX = touch.clientX - rect.left;
+      initialY = touch.clientY - rect.top;
+      touchEl.style.position = 'fixed';
+      touchEl.style.zIndex = 1000;
+      touchEl.classList.add('dragging');
+      touchMove(e);
+    }
+    function touchMove(e) {
+      if(!touchEl) return;
+      e.preventDefault();
+      const touch = e.touches[0];
+      touchEl.style.left = (touch.clientX - initialX) + 'px';
+      touchEl.style.top = (touch.clientY - initialY) + 'px';
+    }
+    function touchEnd(e) {
+      if(!touchEl) return;
+      touchEl.style.position = 'static';
+      touchEl.style.zIndex = 'auto';
+      touchEl.style.left = 'auto';
+      touchEl.style.top = 'auto';
+      touchEl.classList.remove('dragging');
+      
+      const touch = e.changedTouches[0];
+      const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+      const slot = dropTarget ? dropTarget.closest('.drop-slot') : null;
+      if (slot && !slot.hasChildNodes()) handleDrop(touchEl, slot);
+      touchEl = null;
+    }
+
+    function handleDrop(item, slot) {
+      if (item && item.dataset.id === slot.dataset.id) {
+        slot.appendChild(item);
+        item.draggable = false;
+        item.removeEventListener('touchstart', touchStart);
+        slot.classList.add('correct');
+        item.classList.add('correct');
+        item.style.border = 'none';
+        item.style.boxShadow = 'none';
+        
+        correctCount++;
+        if (correctCount === pairs.length) {
+          setTimeout(() => alert('太棒了！10 題全部配對成功！'), 300);
+        }
+      } else {
+        slot.style.borderColor = '#e74c3c';
+        setTimeout(() => slot.style.borderColor = '#bdc3c7', 500);
+      }
+    }
+
+    initGame();
+  </script>
+</body>
+</html>
