@@ -92,10 +92,10 @@
         const item = document.createElement('div');
         item.className = 'pinyin-item';
         // 針對有加英文翻譯的長字串，允許換行縮小顯示
-        let hanziStyle = p.hanzi.length > 8 ? 'font-size: 14px;' : '';
+        
         item.innerHTML = `
           <div class="pinyin-label">${p.pinyin}</div>
-          <div class="hanzi-label" style="${hanziStyle}">${p.hanzi}</div>
+          <div class="hanzi-label" >${p.hanzi}</div>
           <div class="drop-slot" data-id="${p.id}"></div>
         `;
         pinyinDiv.appendChild(item);
