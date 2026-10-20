@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>當代中文課程 B2L6 詞彙填空配對練習</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Nunito:wght@600;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #eef2ff;
+      --primary-hover: #4338ca;
+      --accent: #06b6d4;
+      --accent-light: #ecfeff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --error: #ef4444;
+      --error-light: #fef2f2;
+      --warning: #f59e0b;
+      --card-bg: #ffffff;
+      --body-bg: #f8fafc;
+      --text-main: #1e293b;
+      --text-sub: #64748b;
+      --border-ui: #e2e8f0;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-md: 0 6px 16px rgba(0,0,0,0.07);
+      --shadow-lg: 0 16px 36px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Nunito', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 20px 16px 60px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 24px 24px 18px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #4f46e5, #06b6d4, #10b981, #f59e0b);
+    }
+
+    .badge-unit {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+    }
+
+    /* Top Utility Bar */
+    .utility-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-ui);
+    }
+
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .toggle-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .global-stats-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .stats-pill {
+      background: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border-ui);
+    }
+
+    .btn-finish-all {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      color: white;
+      border: none;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-finish-all:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(234, 88, 12, 0.35);
+    }
+
+    /* Tabs Navigation */
+    .tabs-wrapper {
+      margin-bottom: 20px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      padding-bottom: 4px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      min-width: max-content;
+    }
+
+    .tab-btn {
+      background: white;
+      border: 1.5px solid var(--border-ui);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .tab-badge {
+      font-size: 0.75rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.06);
+    }
+
+    .tab-btn.active .tab-badge {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Game Card */
+    .game-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.28rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-desc {
+      font-size: 0.88rem;
+      font-weight: normal;
+      color: var(--text-sub);
+      width: 100%;
+    }
+
+    /* Word Bank */
+    .word-bank-container {
+      background: var(--primary-light);
+      border: 2px dashed #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 26px;
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+    }
+
+    .word-bank-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .word-bank-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .word-bank-hint {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+
+    .word-chips-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: 48px;
+    }
+
+    .word-chip {
+      background: white;
+      border: 1.5px solid #cbd5e1;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: grab;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.2;
+    }
+
+    .word-chip .pinyin-text {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      font-weight: 500;
+      margin-bottom: 2px;
+      display: none;
+    }
+
+    body.show-pinyin .word-chip .pinyin-text {
+      display: block;
+    }
+
+    .word-chip:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(79, 70, 229, 0.15);
+    }
+
+    .word-chip.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.25);
+      transform: scale(1.05);
+    }
+
+    .word-chip.selected .pinyin-text {
+      color: rgba(255,255,255,0.85);
+    }
+
+    .word-chip.used {
+      opacity: 0.35;
+      background: #f1f5f9;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Questions List */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .group-divider {
+      background: #f1f5f9;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-top: 16px;
+      border-left: 4px solid var(--primary);
+      font-size: 1.05rem;
+    }
+
+    .question-item {
+      background: #f8fafc;
+      border: 1.5px solid var(--border-ui);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: all 0.2s;
+    }
+
+    .question-item:hover {
+      border-color: #cbd5e1;
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .question-item.correct {
+      border-color: var(--success);
+      background: var(--success-light);
+    }
+
+    .question-item.wrong {
+      border-color: var(--error);
+      background: var(--error-light);
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-4px); }
+      40%, 80% { transform: translateX(4px); }
+    }
+
+    .q-number {
+      background: white;
+      color: var(--text-sub);
+      border: 1px solid var(--border-ui);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .q-content {
+      flex: 1;
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: #1e293b;
+      line-height: 2.1;
+    }
+
+    .q-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .btn-speak {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      font-size: 1.15rem;
+    }
+
+    .btn-speak:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* Blank Slot */
+    .blank-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 95px;
+      height: 38px;
+      padding: 2px 14px;
+      margin: 0 4px;
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      background: white;
+      vertical-align: middle;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .blank-slot:hover {
+      border-color: var(--primary);
+      background: #faf5ff;
+    }
+
+    .blank-slot.target-active {
+      border-color: var(--primary);
+      background: #eff6ff;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+
+    .blank-slot.filled {
+      border-style: solid;
+      border-color: var(--primary);
+      background: #eff6ff;
+      color: #312e81;
+    }
+
+    .blank-slot.correct {
+      border-color: var(--success);
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .blank-slot.wrong {
+      border-color: var(--error);
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .blank-slot .remove-btn {
+      display: none;
+      margin-left: 6px;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+    }
+
+    .blank-slot.filled:hover .remove-btn {
+      display: inline-block;
+      color: var(--error);
+    }
+
+    /* Action Buttons Bar */
+    .actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-ui);
+    }
+
+    .btn-group-left, .btn-group-right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border: 1.5px solid transparent;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      border-color: var(--border-ui);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(217, 119, 6, 0.35);
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0f172a;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Confetti Canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2000;
+    }
+
+    /* =========================================
+       MODAL & REWARD CERTIFICATE CARD STYLES
+       ========================================= */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1500;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-container {
+      max-width: 680px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      margin: auto;
+      animation: modalScaleUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalScaleUp {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* The Reward Certificate Card */
+    .award-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 36px 32px 30px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      border: 8px solid #ffffff;
+    }
+
+    /* Award Rank Theming */
+    /* 1. Rank: 第一名 (Gold Champion) */
+    .award-card.rank-champion {
+      background: radial-gradient(circle at 50% 0%, #fffbeb 0%, #fef3c7 45%, #ffffff 100%);
+      border-color: #f59e0b;
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);
+    }
+    .award-card.rank-champion .award-badge-icon {
+      background: linear-gradient(135deg, #fef08a, #f59e0b);
+      color: #78350f;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+    }
+    .award-card.rank-champion .award-title {
+      color: #b45309;
+      background: linear-gradient(135deg, #b45309, #d97706, #92400e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 2. Rank: 超厲害 (Purple Star) */
+    .award-card.rank-great {
+      background: radial-gradient(circle at 50% 0%, #faf5ff 0%, #f3e8ff 45%, #ffffff 100%);
+      border-color: #a855f7;
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.3);
+    }
+    .award-card.rank-great .award-badge-icon {
+      background: linear-gradient(135deg, #e9d5ff, #a855f7);
+      color: #4c1d95;
+      box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
+    }
+    .award-card.rank-great .award-title {
+      color: #7e22ce;
+      background: linear-gradient(135deg, #6b21a8, #9333ea, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 3. Rank: 很不錯 (Emerald / Teal) */
+    .award-card.rank-good {
+      background: radial-gradient(circle at 50% 0%, #ecfdf5 0%, #d1fae5 45%, #ffffff 100%);
+      border-color: #10b981;
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.25);
+    }
+    .award-card.rank-good .award-badge-icon {
+      background: linear-gradient(135deg, #a7f3d0, #10b981);
+      color: #064e3b;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+    }
+    .award-card.rank-good .award-title {
+      color: #047857;
+      background: linear-gradient(135deg, #065f46, #059669, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 4. Rank: 請加油 (Warm Amber / Sprout) */
+    .award-card.rank-keepgoing {
+      background: radial-gradient(circle at 50% 0%, #fff7ed 0%, #ffedd5 45%, #ffffff 100%);
+      border-color: #ea580c;
+      box-shadow: 0 0 35px rgba(234, 88, 12, 0.25);
+    }
+    .award-card.rank-keepgoing .award-badge-icon {
+      background: linear-gradient(135deg, #fed7aa, #f97316);
+      color: #7c2d12;
+      box-shadow: 0 10px 25px rgba(249, 115, 22, 0.35);
+    }
+    .award-card.rank-keepgoing .award-title {
+      color: #c2410c;
+      background: linear-gradient(135deg, #9a3412, #ea580c, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Card Elements */
+    .card-ribbon {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    .award-badge-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border: 4px solid white;
+      animation: floatBadge 3s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .award-title {
+      font-size: 2.35rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .award-subtitle {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 22px;
+    }
+
+    /* Stats Grid */
+    .stats-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-metric-card {
+      background: white;
+      border-radius: 14px;
+      padding: 14px 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-ui);
+    }
+
+    .stat-metric-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .stat-metric-value {
+      font-size: 1.6rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .val-total { color: #334155; }
+    .val-correct { color: var(--success); }
+    .val-wrong { color: var(--error); }
+    .val-rate { color: var(--primary); }
+
+    .award-comment-box {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    /* Group Detail Breakdown */
+    .group-breakdown {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .breakdown-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #475569;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .breakdown-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .breakdown-item {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      display: flex;
+      justify-content: space-between;
+      background: white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-ui);
+    }
+
+    /* Modal Action Buttons */
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-footer-info {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-top: 18px;
+    }
+
+    /* Print View for Award Card */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .modal-overlay, .modal-overlay * {
+        visibility: visible;
+      }
+      .modal-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        background: none;
+        padding: 0;
+      }
+      .modal-container {
+        box-shadow: none;
+      }
+      .modal-actions, .close-modal-btn {
+        display: none !important;
+      }
+      .award-card {
+        border-width: 4px;
+        box-shadow: none !important;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      header {
+        padding: 20px 16px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      .game-card {
+        padding: 18px 14px;
+      }
+      .q-content {
+        font-size: 1.05rem;
+      }
+      .blank-slot {
+        min-width: 80px;
+        height: 34px;
+        padding: 2px 8px;
+        font-size: 1rem;
+      }
+      .word-chip {
+        font-size: 1rem;
+        padding: 6px 14px;
+      }
+      .actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-group-left, .btn-group-right {
+        width: 100%;
+      }
+      .btn {
+        flex: 1;
+        justify-content: center;
+      }
+      .stats-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .breakdown-list {
+        grid-template-columns: 1fr;
+      }
+      .award-title {
+        font-size: 1.8rem;
+      }
+      .award-badge-icon {
+        width: 75px;
+        height: 75px;
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="badge-unit">當代中文課程 第二冊 第六課</div>
+      <h1>詞彙填空配對練習</h1>
+      <p class="subtitle">點選上方詞彙，再點選句子空格，或直接拖曳配對完成練習！</p>
+
+      <div class="utility-bar">
+        <div class="toggle-group">
+          <label class="toggle-item">
+            <input type="checkbox" id="toggle-pinyin">
+            <span>顯示拼音輔助</span>
+          </label>
+          <label class="toggle-item">
+            <input type="checkbox" id="toggle-sound" checked>
+            <span>音效開關</span>
+          </label>
+        </div>
+        <div class="global-stats-group">
+          <div class="stats-pill" title="當前組別已填寫進度">
+            <span>🎯 本組進度：</span>
+            <span id="group-progress-indicator">0 / 8</span>
+          </div>
+          <div class="stats-pill" title="全課46題累計填寫進度" style="background:#e0e7ff; color:#4338ca;">
+            <span>🌐 全課累計：</span>
+            <span id="global-progress-indicator">0 / 46</span>
+          </div>
+          <button class="btn-finish-all" id="btn-top-summary">
+            <span>🏆 結算成績＆領取獎勵卡</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Level Navigation Tabs -->
+    <div class="tabs-wrapper">
+      <div class="tabs-nav" id="tabs-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Active Game Card -->
+    <main class="game-card">
+      <div class="section-title">
+        <div id="group-title-text">第一組：租屋與合約</div>
+        <div class="section-desc" id="group-desc-text">共 7 題，請選出最適當的詞彙填入空格</div>
+      </div>
+
+      <!-- Word Bank -->
+      <section class="word-bank-container">
+        <div class="word-bank-header">
+          <div class="word-bank-title">
+            <span>📦 詞彙選單 (Word Bank)</span>
+          </div>
+          <div class="word-bank-hint" id="bank-hint-text">點擊選取詞彙後，再點擊句中空格填入</div>
+        </div>
+        <div class="word-chips-list" id="word-chips-box">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- Questions List -->
+      <section class="questions-list" id="questions-box">
+        <!-- Rendered by JS -->
+      </section>
+
+      <!-- Control Buttons -->
+      <div class="actions-bar">
+        <div class="btn-group-left">
+          <button class="btn btn-primary" id="btn-check">
+            <span>✅ 檢查本組答案</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-show-answers">
+            <span>💡 顯示正解</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-reset">
+            <span>🔄 重置本組</span>
+          </button>
+          <button class="btn btn-gold" id="btn-bottom-summary">
+            <span>🏆 結算全課成績單</span>
+          </button>
+        </div>
+        <div class="btn-group-right">
+          <button class="btn btn-secondary" id="btn-prev-group">
+            <span>⬅️ 上一組</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-next-group">
+            <span>下一組 ➡️</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toast">提示訊息</div>
+
+  <!-- Reward Modal -->
+  <div class="modal-overlay" id="reward-modal">
+    <div class="modal-container">
+      <div class="award-card" id="award-card-box">
+        <div class="card-ribbon">DANGDAI CHINESE BOOK 2 LESSON 6</div>
+        
+        <!-- Animated Badge Icon -->
+        <div class="award-badge-icon" id="award-badge-icon">🏆</div>
+        
+        <!-- Big Rank Title -->
+        <h2 class="award-title" id="award-title">你是第一名！</h2>
+        <div class="award-subtitle" id="award-rank-desc">當代中文 B2L6 詞彙填空認證</div>
+
+        <!-- Metric Grid -->
+        <div class="stats-summary-grid">
+          <div class="stat-metric-card">
+            <div class="stat-metric-label">總空格數</div>
+            <div class="stat-metric-value val-total" id="stat-total">46</div>
+          </div>
+          <div class="stat-metric-card">
+            <div class="stat-metric-label">答對題數</div>
+            <div class="stat-metric-value val-correct" id="stat-correct">0</div>
+          </div>
+          <div class="stat-metric-card">
+            <div class="stat-metric-label">答錯 / 未填</div>
+            <div class="stat-metric-value val-wrong" id="stat-wrong">0</div>
+          </div>
+          <div class="stat-metric-card">
+            <div class="stat-metric-label">正確率</div>
+            <div class="stat-metric-value val-rate" id="stat-rate">0%</div>
+          </div>
+        </div>
+
+        <!-- Encouraging Comment -->
+        <div class="award-comment-box" id="award-comment">
+          評語載入中...
+        </div>
+
+        <!-- Breakdown per Group -->
+        <div class="group-breakdown">
+          <div class="breakdown-title">
+            <span>📑 各組答題明細</span>
+            <span style="font-weight:normal; font-size:0.8rem; color:#64748b;">(點選可跳轉訂正)</span>
+          </div>
+          <div class="breakdown-list" id="breakdown-list-box">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="btn-print-award">
+            <span>🖨️ 列印 / 儲存獎勵卡</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-close-modal">
+            <span>✕ 關閉視窗</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-reset-all">
+            <span>🔄 全部重新挑戰</span>
+          </button>
+        </div>
+
+        <div class="card-footer-info">
+          <div style="margin-bottom: 5px; color: #64748b; font-weight: 600;">獎勵標準：全對46題「你是第一名！」｜ 答對40-45題「超厲害！」｜ 答對35-39題「很不錯！」｜ 35題以下「請加油！」</div>
+          <div>認證日期：<span id="award-date">2026/10/20</span> ｜ 《當代中文課程》線上自主練習系統</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Data Definitions ---
+    const VOCAB_DATA = [
+      {
+        id: "group1",
+        title: "第一組：租屋與合約",
+        desc: "學習租屋、房客合約、家具與居住條件相關詞彙（共 7 句，8 個空格）",
+        words: [
+          { text: "搬", pinyin: "bān" },
+          { text: "合約", pinyin: "héyuē" },
+          { text: "合適", pinyin: "héshì" },
+          { text: "家具", pinyin: "jiājù" },
+          { text: "搬家", pinyin: "bānjiā" },
+          { text: "到期", pinyin: "dàoqí" },
+          { text: "願意", pinyin: "yuànyì" },
+          { text: "近", pinyin: "jìn" }
+        ],
+        sentences: [
+          {
+            id: "g1_s1",
+            parts: ["我在這裡住了兩年，房子的 ", " 下個月就要 ", " 了，所以我得開始找新房子。"],
+            answers: ["合約", "到期"]
+          },
+          {
+            id: "g1_s2",
+            parts: ["這間房子的房租很便宜，而且離捷運站很 ", "，走路五分鐘就到了。"],
+            answers: ["近"]
+          },
+          {
+            id: "g1_s3",
+            parts: ["你看！那間房間裡有新買的 ", "，像是沙發和櫃子，看起來很舒服。"],
+            answers: ["家具"]
+          },
+          {
+            id: "g1_s4",
+            parts: ["房東先生人很好，他 ", " 幫我們修理壞掉的冷氣。"],
+            answers: ["願意"]
+          },
+          {
+            id: "g1_s5",
+            parts: ["這張桌子太重了，你可以幫我一起 ", " 到樓上嗎？"],
+            answers: ["搬"]
+          },
+          {
+            id: "g1_s6",
+            parts: ["找了這麼久，我終於找到一間 ", " 的房子，大小和價錢我都滿意（mǎn yì, Hài lòng）。"],
+            answers: ["合適"]
+          },
+          {
+            id: "g1_s7",
+            parts: ["我們下個星期六要 ", "，朋友們都會來幫忙整理東西。"],
+            answers: ["搬家"]
+          }
+        ]
+      },
+      {
+        id: "group2",
+        title: "第二組：房間與周邊環境",
+        desc: "學習描述居住環境、光線、噪音與房內桌椅擺設（共 8 句，8 個空格）",
+        words: [
+          { text: "床", pinyin: "chuáng" },
+          { text: "桌子", pinyin: "zhuōzi" },
+          { text: "河邊", pinyin: "hébiān" },
+          { text: "公園", pinyin: "gōngyuán" },
+          { text: "椅子", pinyin: "yǐzi" },
+          { text: "光線", pinyin: "guāngxiàn" },
+          { text: "吵", pinyin: "chǎo" },
+          { text: "放", pinyin: "fàng" }
+        ],
+        sentences: [
+          {
+            id: "g2_s1",
+            parts: ["這間房間的 ", " 很好，白天不用開燈也非常亮。"],
+            answers: ["光線"]
+          },
+          {
+            id: "g2_s2",
+            parts: ["請你把這本書 ", " 在書架上。"],
+            answers: ["放"]
+          },
+          {
+            id: "g2_s3",
+            parts: ["我的房間外面就是馬路，車子很多，晚上睡覺的時候有點 ", "。"],
+            answers: ["吵"]
+          },
+          {
+            id: "g2_s4",
+            parts: ["這張 ", " 太小了，只能給小孩子坐。"],
+            answers: ["椅子"]
+          },
+          {
+            id: "g2_s5",
+            parts: ["我要去買一張大一點的 ", "，因為我有兩台電腦。"],
+            answers: ["桌子"]
+          },
+          {
+            id: "g2_s6",
+            parts: ["天氣好的時候，很多人喜歡去 ", " 散步或運動。"],
+            answers: ["公園"]
+          },
+          {
+            id: "g2_s7",
+            parts: ["我住的地方後面有一條河，我喜歡在 ", " 騎車看風景。"],
+            answers: ["河邊"]
+          },
+          {
+            id: "g2_s8",
+            parts: ["這張 ", " 很大，睡兩個人也沒有問題。"],
+            answers: ["床"]
+          }
+        ]
+      },
+      {
+        id: "group3",
+        title: "第三組：數位工具與討論",
+        desc: "學習電腦資料、隨身碟儲存與課業討論相關用語（共 8 句，8 個空格）",
+        words: [
+          { text: "網站", pinyin: "wǎngzhàn" },
+          { text: "資料", pinyin: "zīliào" },
+          { text: "正在", pinyin: "zhèngzài" },
+          { text: "討論", pinyin: "tǎolùn" },
+          { text: "存", pinyin: "cún" },
+          { text: "隨身碟", pinyin: "suíshēndié" },
+          { text: "用", pinyin: "yòng" },
+          { text: "什麼樣", pinyin: "shénmeyàng" }
+        ],
+        sentences: [
+          {
+            id: "g3_s1",
+            parts: ["你現在 ", " 做什麼？我看你一直在看手錶。"],
+            answers: ["正在"]
+          },
+          {
+            id: "g3_s2",
+            parts: ["這個 ", " 裡有很多學中文的影片，你可以上去看看。"],
+            answers: ["網站"]
+          },
+          {
+            id: "g3_s3",
+            parts: ["請把這些照片 ", " 在電腦裡，以後還能給孩子看。"],
+            answers: ["存"]
+          },
+          {
+            id: "g3_s4",
+            parts: ["我和同學約在圖書館，我們要一起 ", " 明天的報告。"],
+            answers: ["討論"]
+          },
+          {
+            id: "g3_s5",
+            parts: ["這份 ", " 很重要，請你幫我印出來，開會的時候要看。"],
+            answers: ["資料"]
+          },
+          {
+            id: "g3_s6",
+            parts: ["我的電腦怪怪的，可以借我 ", " 一下你的平板電腦嗎？"],
+            answers: ["用"]
+          },
+          {
+            id: "g3_s7",
+            parts: ["你想找 ", " 的房子？是有廚房的還是有陽台的？"],
+            answers: ["什麼樣"]
+          },
+          {
+            id: "g3_s8",
+            parts: ["我的資料都在 ", " 裡，只要有電腦就可以看了。"],
+            answers: ["隨身碟"]
+          }
+        ]
+      },
+      {
+        id: "group4",
+        title: "第四組：日常行動與程度",
+        desc: "學習說明時間餘裕、程度副詞、開關電器與騎車（第 5 題填「腳踏車」或「自行車」皆可，共 7 句 7 個空格）",
+        words: [
+          { text: "腳踏車", pinyin: "jiǎotàchē" },
+          { text: "自行車", pinyin: "zìxíngchē" },
+          { text: "慢慢來", pinyin: "mànmàn lái" },
+          { text: "相當", pinyin: "xiāngdāng" },
+          { text: "兩邊", pinyin: "liǎngbiān" },
+          { text: "開", pinyin: "kāi" },
+          { text: "不急", pinyin: "bù jí" },
+          { text: "而且", pinyin: "érqiě" }
+        ],
+        sentences: [
+          {
+            id: "g4_s1",
+            parts: ["這件事情很簡單，我們還有很多時間，你可以 ", "，不用緊張。"],
+            answers: ["慢慢來"]
+          },
+          {
+            id: "g4_s2",
+            parts: ["這家餐廳的菜非常好吃，", " 價格也不貴。"],
+            answers: ["而且"]
+          },
+          {
+            id: "g4_s3",
+            parts: ["這條馬路的 ", " 都種了樹，看起來很舒服。"],
+            answers: ["兩邊"]
+          },
+          {
+            id: "g4_s4",
+            parts: ["那個比賽 ", " 精彩，大家都看得很開心。"],
+            answers: ["相當"]
+          },
+          {
+            id: "g4_s5",
+            parts: ["請問這裡可以租 ", " 嗎？我想騎去淡水玩。"],
+            answers: [["腳踏車", "自行車"]] // 兩者皆可
+          },
+          {
+            id: "g4_s6",
+            parts: ["這份文件老闆下週才要看，", "，你先做別的事沒關係。"],
+            answers: ["不急"]
+          },
+          {
+            id: "g4_s7",
+            parts: ["太熱了！麻煩你幫我 ", " 冷氣，謝謝。"],
+            answers: ["開"]
+          }
+        ]
+      },
+      {
+        id: "group5",
+        title: "第五組：情緒心情與生活表達",
+        desc: "學習表達假使、遺憾、慶幸、保留與安心感（共 8 句，8 個空格）",
+        words: [
+          { text: "如果", pinyin: "rúguǒ" },
+          { text: "還好", pinyin: "háihǎo" },
+          { text: "別的", pinyin: "biéde" },
+          { text: "放心", pinyin: "fàngxīn" },
+          { text: "少", pinyin: "shǎo" },
+          { text: "可惜", pinyin: "kěxī" },
+          { text: "失望", pinyin: "shīwàng" },
+          { text: "留", pinyin: "liú" }
+        ],
+        sentences: [
+          {
+            id: "g5_s1",
+            parts: ["", " 明天下雨，我們就改變爬山的計畫吧！"],
+            answers: ["如果"]
+          },
+          {
+            id: "g5_s2",
+            parts: ["這家店的蛋糕賣完了，真 ", "，下次再來吃吧！"],
+            answers: ["可惜"]
+          },
+          {
+            id: "g5_s3",
+            parts: ["我的錢包不見了，", " 裡面沒有錢，只有一張信用卡。"],
+            answers: ["還好"]
+          },
+          {
+            id: "g5_s4",
+            parts: ["我的妹妹出國留學了，", " 了她，生活變得很無聊。"],
+            answers: ["少"]
+          },
+          {
+            id: "g5_s5",
+            parts: ["你 ", "，我一定會好好照顧自己。"],
+            answers: ["放心"]
+          },
+          {
+            id: "g5_s6",
+            parts: ["媽媽煮了大餐，但大家都沒回家吃，讓她覺得很 ", "。"],
+            answers: ["失望"]
+          },
+          {
+            id: "g5_s7",
+            parts: ["冰箱裡只有紅茶，你想喝 ", " 飲料嗎？我去便利商店買。"],
+            answers: ["別的"]
+          },
+          {
+            id: "g5_s8",
+            parts: ["這塊蛋糕我要 ", " 給弟弟吃，你不要把它吃了。"],
+            answers: ["留"]
+          }
+        ]
+      },
+      {
+        id: "group6",
+        title: "第六組：校園活動與生活條件",
+        desc: "學習社團活動、生活費開銷與形容氣候重要性（共 7 句，7 個空格）",
+        words: [
+          { text: "生活費", pinyin: "shēnghuófèi" },
+          { text: "長", pinyin: "cháng" },
+          { text: "活動", pinyin: "huódòng" },
+          { text: "重要", pinyin: "zhòngyào" },
+          { text: "低", pinyin: "dī" },
+          { text: "社團", pinyin: "shètuán" },
+          { text: "首爾", pinyin: "Shǒu'ěr" }
+        ],
+        sentences: [
+          {
+            id: "g6_s1",
+            parts: ["這學期我參加了吉他 ", "，認識了很多喜歡音樂的朋友。"],
+            answers: ["社團"]
+          },
+          {
+            id: "g6_s2",
+            parts: ["你是去韓國 ", " 旅行嗎？聽說那裡的冬天很冷。"],
+            answers: ["首爾"]
+          },
+          {
+            id: "g6_s3",
+            parts: ["在台北租房子太貴了，我想搬到 ", " 比較便宜的地方。"],
+            answers: ["生活費"]
+          },
+          {
+            id: "g6_s4",
+            parts: ["學校下個月會舉辦一個慶祝畢業的 ", "，歡迎大家一起來參加。"],
+            answers: ["活動"]
+          },
+          {
+            id: "g6_s5",
+            parts: ["這條褲子太 ", " 了，她矮矮的，不適合她。"],
+            answers: ["長"]
+          },
+          {
+            id: "g6_s6",
+            parts: ["對我來說，學好中文最 ", " 的事就是多跟台灣人聊天。"],
+            answers: ["重要"]
+          },
+          {
+            id: "g6_s7",
+            parts: ["今天的氣溫比較 ", "，要多穿一點。"],
+            answers: ["低"]
+          }
+        ]
+      }
+    ];
+
+    // Compute total blanks in entire lesson (8+8+8+7+8+7 = 46)
+    const TOTAL_LESSON_BLANKS = VOCAB_DATA.reduce((sum, g) => {
+      return sum + g.sentences.reduce((sSum, s) => sSum + s.answers.length, 0);
+    }, 0);
+
+    // --- Global Application State ---
+    let currentGroupIndex = 0; // 0..5: specific group, 6: all groups view
+    let selectedWord = null; // currently picked word chip
+    const allUserAnswers = {}; // blankId -> filled word (persisted across tabs!)
+    const groupShowingAnswers = {}; // groupId -> boolean
+
+    // --- Web Audio API Feedback ---
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playTone(type) {
+      if (!document.getElementById("toggle-sound").checked) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'select') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'place') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } else if (type === 'remove') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(330, now + 0.08);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'correct') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.setValueAtTime(880, now + 0.1);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(180, now + 0.12);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'fanfare') {
+          // Grand fanfare for Champion (1st Place)
+          const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+          notes.forEach((freq, idx) => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.connect(g);
+            g.connect(ctx.destination);
+            o.type = 'triangle';
+            o.frequency.setValueAtTime(freq, now + idx * 0.1);
+            g.gain.setValueAtTime(0.18, now + idx * 0.1);
+            g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.45);
+            o.start(now + idx * 0.1);
+            o.stop(now + idx * 0.1 + 0.45);
+          });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // --- Web Speech API TTS ---
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'zh-TW';
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // --- Toast Notification ---
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    // --- Confetti Canvas ---
+    function triggerConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#f59e0b', '#4f46e5', '#06b6d4', '#10b981', '#ec4899', '#8b5cf6', '#e11d48'];
+
+      for (let i = 0; i < 120; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height * 0.35,
+          r: Math.random() * 7 + 4,
+          dx: (Math.random() - 0.5) * 16,
+          dy: (Math.random() - 0.7) * 18,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.random() * 10,
+          tiltAngle: 0,
+          tiltSpeed: Math.random() * 0.1 + 0.05,
+          alpha: 1
+        });
+      }
+
+      let animationFrame;
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        particles.forEach(p => {
+          p.x += p.dx;
+          p.y += p.dy;
+          p.dy += 0.35;
+          p.tiltAngle += p.tiltSpeed;
+          p.alpha -= 0.007;
+
+          if (p.alpha > 0) {
+            alive = true;
+            ctx.beginPath();
+            ctx.lineWidth = p.r / 2;
+            ctx.strokeStyle = p.color;
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+            ctx.stroke();
+          }
+        });
+
+        if (alive) {
+          animationFrame = requestAnimationFrame(render);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          cancelAnimationFrame(animationFrame);
+        }
+      }
+      render();
+    }
+
+    // --- UI Tabs Initialization ---
+    function initTabs() {
+      const tabsBox = document.getElementById("tabs-container");
+      tabsBox.innerHTML = "";
+
+      // 6 Individual Groups
+      VOCAB_DATA.forEach((group, idx) => {
+        const btn = document.createElement("button");
+        btn.className = `tab-btn ${idx === currentGroupIndex ? 'active' : ''}`;
+        const groupBlanks = group.sentences.reduce((acc, s) => acc + s.answers.length, 0);
+        btn.innerHTML = `
+          <span>第 ${idx + 1} 組</span>
+          <span class="tab-badge">${groupBlanks} 格</span>
+        `;
+        btn.addEventListener("click", () => switchTab(idx));
+        tabsBox.appendChild(btn);
+      });
+
+      // Tab 7: All in one overview
+      const allBtn = document.createElement("button");
+      allBtn.className = `tab-btn ${currentGroupIndex === VOCAB_DATA.length ? 'active' : ''}`;
+      allBtn.innerHTML = `
+        <span>📑 全課大挑戰</span>
+        <span class="tab-badge">${TOTAL_LESSON_BLANKS} 格</span>
+      `;
+      allBtn.addEventListener("click", () => switchTab(VOCAB_DATA.length));
+      tabsBox.appendChild(allBtn);
+    }
+
+    function switchTab(index) {
+      currentGroupIndex = index;
+      selectedWord = null;
+      updateTabs();
+      renderCurrentView();
+    }
+
+    function updateTabs() {
+      const btns = document.querySelectorAll(".tab-btn");
+      btns.forEach((btn, idx) => {
+        btn.classList.toggle("active", idx === currentGroupIndex);
+      });
+    }
+
+    // --- Main Rendering Engine ---
+    function renderCurrentView() {
+      const isAllView = (currentGroupIndex === VOCAB_DATA.length);
+
+      if (!isAllView) {
+        const group = VOCAB_DATA[currentGroupIndex];
+        document.getElementById("group-title-text").textContent = group.title;
+        document.getElementById("group-desc-text").textContent = group.desc;
+        renderWordBank(group.words);
+        renderQuestions([group]);
+      } else {
+        document.getElementById("group-title-text").textContent = "全課大挑戰（第 1 ~ 6 組完整練習）";
+        document.getElementById("group-desc-text").textContent = `全課共 46 個填空題目，適合連續進行挑戰或全班投影練習！`;
+        // Flatten all words for word bank
+        const allWords = [];
+        VOCAB_DATA.forEach(g => allWords.push(...g.words));
+        renderWordBank(allWords);
+        renderQuestions(VOCAB_DATA);
+      }
+
+      updateProgressIndicators();
+      updateShowAnswerButtonState();
+    }
+
+    function renderWordBank(wordsList) {
+      const box = document.getElementById("word-chips-box");
+      box.innerHTML = "";
+
+      const usedWords = Object.values(allUserAnswers);
+
+      wordsList.forEach(wordObj => {
+        const chip = document.createElement("div");
+        chip.className = "word-chip";
+        chip.draggable = true;
+        chip.dataset.word = wordObj.text;
+
+        const isUsed = usedWords.includes(wordObj.text);
+        if (isUsed) {
+          chip.classList.add("used");
+        }
+
+        if (selectedWord === wordObj.text && !isUsed) {
+          chip.classList.add("selected");
+        }
+
+        chip.innerHTML = `
+          <span class="pinyin-text">${wordObj.pinyin}</span>
+          <span class="word-text">${wordObj.text}</span>
+        `;
+
+        // Click to select
+        chip.addEventListener("click", () => {
+          if (isUsed) {
+            showToast("此詞彙已填入空格中，點選空格可收回");
+            return;
+          }
+          if (selectedWord === wordObj.text) {
+            selectedWord = null;
+            chip.classList.remove("selected");
+          } else {
+            selectedWord = wordObj.text;
+            playTone('select');
+            document.querySelectorAll(".word-chip").forEach(c => c.classList.remove("selected"));
+            chip.classList.add("selected");
+            showToast(`已選取「${selectedWord}」，請點擊句子空格填入`);
+          }
+        });
+
+        // Drag & Drop
+        chip.addEventListener("dragstart", (e) => {
+          if (isUsed) {
+            e.preventDefault();
+            return;
+          }
+          e.dataTransfer.setData("text/plain", wordObj.text);
+          chip.classList.add("dragging");
+          playTone('select');
+        });
+
+        chip.addEventListener("dragend", () => {
+          chip.classList.remove("dragging");
+        });
+
+        box.appendChild(chip);
+      });
+    }
+
+    function renderQuestions(groupsList) {
+      const box = document.getElementById("questions-box");
+      box.innerHTML = "";
+      let globalQuestionNumber = 1;
+
+      groupsList.forEach(group => {
+        if (groupsList.length > 1) {
+          const divider = document.createElement("div");
+          divider.className = "group-divider";
+          divider.textContent = `📍 ${group.title}`;
+          box.appendChild(divider);
+        }
+
+        group.sentences.forEach(sent => {
+          const item = document.createElement("div");
+          item.className = "question-item";
+          item.id = `qitem_${sent.id}`;
+
+          const numEl = document.createElement("div");
+          numEl.className = "q-number";
+          numEl.textContent = globalQuestionNumber++;
+
+          const contentEl = document.createElement("div");
+          contentEl.className = "q-content";
+
+          const fragment = document.createDocumentFragment();
+
+          sent.parts.forEach((partText, pIdx) => {
+            if (partText) {
+              fragment.appendChild(document.createTextNode(partText));
+            }
+
+            if (pIdx < sent.answers.length) {
+              const blankId = `${sent.id}_b${pIdx}`;
+              const slot = document.createElement("span");
+              slot.className = "blank-slot";
+              slot.id = `slot_${blankId}`;
+              slot.dataset.blankId = blankId;
+
+              const filledWord = allUserAnswers[blankId];
+              if (filledWord) {
+                slot.classList.add("filled");
+                slot.innerHTML = `<span>${filledWord}</span><span class="remove-btn" title="清除">✕</span>`;
+              } else {
+                slot.innerHTML = `<span style="color:#94a3b8; font-size:0.9rem; font-weight:normal;">[ 請填入 ]</span>`;
+              }
+
+              // Click to fill / remove
+              slot.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (allUserAnswers[blankId]) {
+                  delete allUserAnswers[blankId];
+                  playTone('remove');
+                  renderCurrentView();
+                } else if (selectedWord) {
+                  allUserAnswers[blankId] = selectedWord;
+                  selectedWord = null;
+                  playTone('place');
+                  renderCurrentView();
+                } else {
+                  showToast("請先點選上方的詞彙，再點此填入！");
+                }
+              });
+
+              // Drag & Drop
+              slot.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                slot.classList.add("target-active");
+              });
+
+              slot.addEventListener("dragleave", () => {
+                slot.classList.remove("target-active");
+              });
+
+              slot.addEventListener("drop", (e) => {
+                e.preventDefault();
+                slot.classList.remove("target-active");
+                const droppedWord = e.dataTransfer.getData("text/plain");
+                if (droppedWord) {
+                  allUserAnswers[blankId] = droppedWord;
+                  selectedWord = null;
+                  playTone('place');
+                  renderCurrentView();
+                }
+              });
+
+              fragment.appendChild(slot);
+            }
+          });
+
+          contentEl.appendChild(fragment);
+
+          // Audio Speak Button
+          const actionsEl = document.createElement("div");
+          actionsEl.className = "q-actions";
+
+          const speakBtn = document.createElement("button");
+          speakBtn.className = "btn-speak";
+          speakBtn.title = "朗讀此句 (TTS)";
+          speakBtn.innerHTML = "🔊";
+          speakBtn.addEventListener("click", () => {
+            let readSentence = "";
+            sent.parts.forEach((p, idx) => {
+              readSentence += p;
+              if (idx < sent.answers.length) {
+                const bId = `${sent.id}_b${idx}`;
+                readSentence += (allUserAnswers[bId] || "空白");
+              }
+            });
+            speakText(readSentence);
+          });
+
+          actionsEl.appendChild(speakBtn);
+
+          item.appendChild(numEl);
+          item.appendChild(contentEl);
+          item.appendChild(actionsEl);
+
+          box.appendChild(item);
+        });
+      });
+    }
+
+    function updateProgressIndicators() {
+      // 1. Group Progress
+      const isAllView = (currentGroupIndex === VOCAB_DATA.length);
+      let targetGroups = isAllView ? VOCAB_DATA : [VOCAB_DATA[currentGroupIndex]];
+
+      let groupBlanks = 0;
+      let groupFilled = 0;
+      targetGroups.forEach(g => {
+        g.sentences.forEach(s => {
+          s.answers.forEach((_, aIdx) => {
+            groupBlanks++;
+            if (allUserAnswers[`${s.id}_b${aIdx}`]) groupFilled++;
+          });
+        });
+      });
+      document.getElementById("group-progress-indicator").textContent = `${groupFilled} / ${groupBlanks}`;
+
+      // 2. Global Progress
+      let totalFilled = Object.keys(allUserAnswers).length;
+      document.getElementById("global-progress-indicator").textContent = `${totalFilled} / ${TOTAL_LESSON_BLANKS}`;
+    }
+
+    // --- Check Answers ---
+    function checkCurrentViewAnswers() {
+      const isAllView = (currentGroupIndex === VOCAB_DATA.length);
+      const groupsToCheck = isAllView ? VOCAB_DATA : [VOCAB_DATA[currentGroupIndex]];
+
+      let allCorrect = true;
+      let unfilledCount = 0;
+      let correctCount = 0;
+      let totalBlanks = 0;
+
+      groupsToCheck.forEach(group => {
+        group.sentences.forEach(sent => {
+          const itemEl = document.getElementById(`qitem_${sent.id}`);
+          let sentenceCorrect = true;
+
+          sent.answers.forEach((ans, aIdx) => {
+            totalBlanks++;
+            const bId = `${sent.id}_b${aIdx}`;
+            const slotEl = document.getElementById(`slot_${bId}`);
+            if (!slotEl) return;
+
+            const userVal = allUserAnswers[bId];
+            slotEl.classList.remove("correct", "wrong");
+
+            if (!userVal) {
+              unfilledCount++;
+              sentenceCorrect = false;
+              allCorrect = false;
+              return;
+            }
+
+            let isMatch = false;
+            if (Array.isArray(ans)) {
+              isMatch = ans.includes(userVal);
+            } else {
+              isMatch = (userVal === ans);
+            }
+
+            if (isMatch) {
+              slotEl.classList.add("correct");
+              correctCount++;
+            } else {
+              slotEl.classList.add("wrong");
+              sentenceCorrect = false;
+              allCorrect = false;
+            }
+          });
+
+          if (itemEl) {
+            itemEl.classList.remove("correct", "wrong");
+            if (sentenceCorrect) {
+              itemEl.classList.add("correct");
+            } else {
+              itemEl.classList.add("wrong");
+            }
+          }
+        });
+      });
+
+      if (unfilledCount > 0) {
+        playTone('wrong');
+        showToast(`還有 ${unfilledCount} 個空格尚未填寫喔！`);
+      } else if (allCorrect) {
+        playTone('fanfare');
+        triggerConfetti();
+        showToast("🎉 太棒了！本區答案全部正確！");
+      } else {
+        playTone('wrong');
+        showToast(`完成核對！答對 ${correctCount} / ${totalBlanks} 格，紅色為需要再思考的題目！`);
+      }
+
+      // Check if user has answered all 46 questions across the whole lesson
+      const totalAllFilled = Object.keys(allUserAnswers).length;
+      if (totalAllFilled === TOTAL_LESSON_BLANKS && !isAllView) {
+        setTimeout(() => {
+          if (confirm("🎊 太厲害了！你已經完成了全課所有 46 個空格！\n是否立即進行【全課成績總結算】並領取精美獎勵卡？")) {
+            evaluateAllAndShowAward();
+          }
+        }, 1200);
+      }
+    }
+
+    // --- Show Answers Toggle ---
+    function toggleShowAnswers() {
+      const isAllView = (currentGroupIndex === VOCAB_DATA.length);
+      const viewKey = isAllView ? 'all' : `g_${currentGroupIndex}`;
+      const isShowing = !groupShowingAnswers[viewKey];
+      groupShowingAnswers[viewKey] = isShowing;
+
+      const targetGroups = isAllView ? VOCAB_DATA : [VOCAB_DATA[currentGroupIndex]];
+
+      if (isShowing) {
+        targetGroups.forEach(g => {
+          g.sentences.forEach(s => {
+            s.answers.forEach((ans, aIdx) => {
+              const bId = `${s.id}_b${aIdx}`;
+              allUserAnswers[bId] = Array.isArray(ans) ? ans[0] : ans;
+            });
+          });
+        });
+        renderCurrentView();
+        checkCurrentViewAnswers();
+      } else {
+        targetGroups.forEach(g => {
+          g.sentences.forEach(s => {
+            s.answers.forEach((_, aIdx) => {
+              const bId = `${s.id}_b${aIdx}`;
+              delete allUserAnswers[bId];
+            });
+          });
+        });
+        renderCurrentView();
+      }
+      updateShowAnswerButtonState();
+    }
+
+    function updateShowAnswerButtonState() {
+      const isAllView = (currentGroupIndex === VOCAB_DATA.length);
+      const viewKey = isAllView ? 'all' : `g_${currentGroupIndex}`;
+      const isShowing = !!groupShowingAnswers[viewKey];
+      const btn = document.getElementById("btn-show-answers");
+
+      if (isShowing) {
+        btn.innerHTML = "<span>🙈 隱藏正解</span>";
+        btn.classList.add("btn-success");
+        btn.classList.remove("btn-secondary");
+      } else {
+        btn.innerHTML = "<span>💡 顯示正解</span>";
+        btn.classList.remove("btn-success");
+        btn.classList.add("btn-secondary");
+      }
+    }
+
+    function resetCurrentGroup() {
+      const isAllView = (currentGroupIndex === VOCAB_DATA.length);
+      const targetGroups = isAllView ? VOCAB_DATA : [VOCAB_DATA[currentGroupIndex]];
+
+      targetGroups.forEach(g => {
+        g.sentences.forEach(s => {
+          s.answers.forEach((_, aIdx) => {
+            delete allUserAnswers[`${s.id}_b${aIdx}`];
+          });
+        });
+      });
+
+      selectedWord = null;
+      renderCurrentView();
+      showToast("已重置當前區域的所有填空！");
+    }
+
+    // --- EVALUATE ALL AND GENERATE REWARD CARD ---
+    function evaluateAllAndShowAward() {
+      let totalCount = TOTAL_LESSON_BLANKS; // 46
+      let correctCount = 0;
+      let wrongCount = 0;
+      const groupStats = [];
+
+      VOCAB_DATA.forEach((group, gIdx) => {
+        let gTotal = 0;
+        let gCorrect = 0;
+
+        group.sentences.forEach(sent => {
+          sent.answers.forEach((ans, aIdx) => {
+            gTotal++;
+            const bId = `${sent.id}_b${aIdx}`;
+            const userVal = allUserAnswers[bId];
+
+            let isMatch = false;
+            if (userVal) {
+              if (Array.isArray(ans)) {
+                isMatch = ans.includes(userVal);
+              } else {
+                isMatch = (userVal === ans);
+              }
+            }
+
+            if (isMatch) {
+              correctCount++;
+              gCorrect++;
+            } else {
+              wrongCount++;
+            }
+          });
+        });
+
+        groupStats.push({
+          index: gIdx,
+          title: group.title,
+          total: gTotal,
+          correct: gCorrect,
+          wrong: gTotal - gCorrect
+        });
+      });
+
+      const accuracy = Math.round((correctCount / totalCount) * 100);
+
+      // Populate Metric Numbers
+      document.getElementById("stat-total").textContent = totalCount;
+      document.getElementById("stat-correct").textContent = correctCount;
+      document.getElementById("stat-wrong").textContent = wrongCount;
+      document.getElementById("stat-rate").textContent = `${accuracy}%`;
+
+      // Render Breakdown per group
+      const breakdownBox = document.getElementById("breakdown-list-box");
+      breakdownBox.innerHTML = "";
+      groupStats.forEach(stat => {
+        const item = document.createElement("div");
+        item.className = "breakdown-item";
+        item.style.cursor = "pointer";
+        item.title = "點擊前往該組複習";
+        item.innerHTML = `
+          <span>第 ${stat.index + 1} 組 (${stat.title.split('：')[1]})</span>
+          <span style="font-weight:800; color:${stat.wrong === 0 ? 'var(--success)' : (stat.correct === 0 ? 'var(--error)' : 'var(--warning)')}">
+            ${stat.correct} / ${stat.total}
+          </span>
+        `;
+        item.addEventListener("click", () => {
+          document.getElementById("reward-modal").classList.remove("active");
+          switchTab(stat.index);
+        });
+        breakdownBox.appendChild(item);
+      });
+
+      // Determine Award Tier:
+      // 1. 全對 (46/46) -> "你是第一名！"
+      // 2. 答對 40 ~ 45 題 -> "超厲害！"
+      // 3. 答對 35 ~ 39 題 -> "很不錯！"
+      // 4. 答對 35 題以下 (< 35) -> "請加油！"
+      const awardCardBox = document.getElementById("award-card-box");
+      awardCardBox.className = "award-card"; // reset classes
+
+      const badgeIconEl = document.getElementById("award-badge-icon");
+      const titleEl = document.getElementById("award-title");
+      const descEl = document.getElementById("award-rank-desc");
+      const commentEl = document.getElementById("award-comment");
+
+      if (correctCount === totalCount) {
+        // --- 1. 全對 (46/46)：你是第一名！ ---
+        awardCardBox.classList.add("rank-champion");
+        badgeIconEl.textContent = "🏆";
+        titleEl.textContent = "你是第一名！";
+        descEl.textContent = "全課 46 題全對滿分 ‧ 最高榮譽認證";
+        commentEl.innerHTML = `
+          🌟 <strong>完美大滿貫！</strong> 你在全課 46 個詞彙填空中<strong>全部答對</strong>！<br>
+          詞彙掌握精準無誤，表現完美，是名副其實的「第一名」！🥇
+        `;
+        playTone('fanfare');
+        triggerConfetti();
+      } else if (correctCount >= 40) {
+        // --- 2. 答對 40 ~ 45 題：超厲害！ ---
+        awardCardBox.classList.add("rank-great");
+        badgeIconEl.textContent = "🚀";
+        titleEl.textContent = "超厲害！";
+        descEl.textContent = "答對 40-45 題 ‧ 高階優秀學員認證";
+        commentEl.innerHTML = `
+          ⭐ <strong>表現超厲害！</strong> 答對了 <strong>${correctCount} / 46</strong> 題（正確率高達 ${accuracy}%）！<br>
+          核心生詞理解透徹，離滿分只差一點點，實力非常強！繼續加油！
+        `;
+        playTone('fanfare');
+        triggerConfetti();
+      } else if (correctCount >= 35) {
+        // --- 3. 答對 35 ~ 39 題：很不錯！ ---
+        awardCardBox.classList.add("rank-good");
+        badgeIconEl.textContent = "👍";
+        titleEl.textContent = "很不錯！";
+        descEl.textContent = "答對 35-39 題 ‧ 良好進步學員認證";
+        commentEl.innerHTML = `
+          👏 <strong>表現很不錯！</strong> 答對了 <strong>${correctCount} / 46</strong> 題！<br>
+          常用句型與詞彙基礎穩固！點選下方各組看看錯題、稍微複習一下，就能挑戰拿到「超厲害」或「第一名」囉！
+        `;
+        playTone('correct');
+      } else {
+        // --- 4. 答對 35 題以下：請加油！ ---
+        awardCardBox.classList.add("rank-keepgoing");
+        badgeIconEl.textContent = "🌱";
+        titleEl.textContent = "請加油！";
+        descEl.textContent = "答對 35 題以下 ‧ 潛力成長學員認證";
+        commentEl.innerHTML = `
+          💪 <strong>已經完成全課練習，請加油！</strong> 答對了 <strong>${correctCount} / 46</strong> 題！<br>
+          別氣餒，多點擊題目旁的 🔊 語音朗讀練習聽讀，並善用「顯示正解」重新挑戰，中文一定會飛速進步！
+        `;
+        playTone('select');
+      }
+
+      // Set Date
+      const today = new Date();
+      document.getElementById("award-date").textContent = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+
+      // Open Modal
+      document.getElementById("reward-modal").classList.add("active");
+    }
+
+    // --- Reset All Answers Across Lesson ---
+    function resetAllAnswers() {
+      if (confirm("確定要清除全課所有 46 題的答案並重新開始嗎？")) {
+        for (const k in allUserAnswers) delete allUserAnswers[k];
+        selectedWord = null;
+        document.getElementById("reward-modal").classList.remove("active");
+        renderCurrentView();
+        showToast("已重置全課所有作答紀錄！");
+      }
+    }
+
+    // --- Event Listeners ---
+    document.addEventListener("DOMContentLoaded", () => {
+      initTabs();
+      renderCurrentView();
+
+      // Controls
+      document.getElementById("btn-check").addEventListener("click", checkCurrentViewAnswers);
+      document.getElementById("btn-show-answers").addEventListener("click", toggleShowAnswers);
+      document.getElementById("btn-reset").addEventListener("click", resetCurrentGroup);
+
+      // Summary Buttons
+      document.getElementById("btn-top-summary").addEventListener("click", evaluateAllAndShowAward);
+      document.getElementById("btn-bottom-summary").addEventListener("click", evaluateAllAndShowAward);
+
+      // Prev / Next Navigation
+      document.getElementById("btn-prev-group").addEventListener("click", () => {
+        if (currentGroupIndex > 0) {
+          switchTab(currentGroupIndex - 1);
+        } else {
+          showToast("已經是第一組囉！");
+        }
+      });
+
+      document.getElementById("btn-next-group").addEventListener("click", () => {
+        if (currentGroupIndex < VOCAB_DATA.length) {
+          switchTab(currentGroupIndex + 1);
+        } else {
+          showToast("已經是最後一個分頁囉！");
+        }
+      });
+
+      // Pinyin Toggle
+      document.getElementById("toggle-pinyin").addEventListener("change", (e) => {
+        document.body.classList.toggle("show-pinyin", e.target.checked);
+      });
+
+      // Modal Buttons
+      document.getElementById("btn-close-modal").addEventListener("click", () => {
+        document.getElementById("reward-modal").classList.remove("active");
+      });
+
+      document.getElementById("reward-modal").addEventListener("click", (e) => {
+        if (e.target.id === "reward-modal") {
+          document.getElementById("reward-modal").classList.remove("active");
+        }
+      });
+
+      document.getElementById("btn-print-award").addEventListener("click", () => {
+        window.print();
+      });
+
+      document.getElementById("btn-reset-all").addEventListener("click", resetAllAnswers);
+    });
+  </script>
+</body>
+</html>
